@@ -8,93 +8,34 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     
-    <style>
-        :root { --brand-red: #722F37; --bg-light: #f8f9fa; --text-dark: #333; }
-        body, html { font-family: "Microsoft JhengHei", sans-serif; background-color: var(--bg-light); margin: 0; overflow-x: hidden; width: 100%; }
-        
-        /* 導覽列與品牌色 */
-        .navbar { background-color: var(--brand-red) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .navbar-brand { font-weight: 900; color: white !important; font-size: 1.5rem; letter-spacing: 1px; }
-        .nav-link { color: rgba(255,255,255,0.9) !important; font-weight: 500; }
-
-        /* Loading 畫面 */
-        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: 0.5s; }
-        
-        /* 相簿與燈箱效果 */
-        .img-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); color: white; padding: 8px 20px; border-radius: 30px; }
-        .social-section { background-color: var(--brand-red); color: white !important; padding: 60px 0; text-align: center; }
-        .social-icons a { font-size: 3rem; margin: 0 20px; color: white; transition: 0.3s; display: inline-block; }
-        
-        /* 密碼驗證遮罩 */
-        #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; display: none; justify-content: center; align-items: center; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body onload="hideLoader()">
     <div id="loading-screen">
-        <div class="logo-box text-center">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 1197" style="width:120px;">
-                <g fill="#9b4541">
-                    <path d="M1201 598.5 c0 -530.1 0.2 -598.5 1.5 -598.5 2 0 2.1 20.5 1.7 667.3 -0.2 469.8 -0.4 529.7 -1.7 529.7 -1.3 0 -1.5 -598.5z"/>
-                    </g>
-            </svg>
-            <div class="brand-name-loading">八毅活動企劃</div>
+        <div class="logo-box">
+            <div id="svg-container"></div> <div class="brand-name-loading">八毅活動企劃</div>
         </div>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
         <div class="container-fluid d-flex justify-content-between align-items-center">
-            <a class="navbar-brand" href="#">八毅活動企劃</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand ms-0" href="#">八毅活動企劃</a>
+            <button class="navbar-toggler me-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#albumModal"><i class="bi bi-images me-1"></i>活動相簿</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showAuth()">3D 實境導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">專業服務</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">企業合作</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">關於八毅</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container my-5">
-        </div>
-
-    <script>
-        // 密碼驗證邏輯 (原本 js.txt 內的 0912345678)
-        function checkAccess() {
-            const code = document.getElementById('access-code').value;
-            if (code === "0912345678") {
-                alert("驗證成功！");
-                document.getElementById('auth-overlay').style.display = 'none';
-            } else {
-                document.getElementById('auth-error').style.display = 'block';
-            }
-        }
-
-        // 相簿資料庫 (還原 js.txt 內的所有 Postimg 連結)
-        let photos_Tables = ["mk9LxTzv", "kGFc1xVC", "MK551m2x", "NMvm3Kvg", "T29PC76C", "Y23YP2XZ", "153w1x21", "GhJmRp8C"];
-        const photoLibrary = {
-            "3rs5P7dS": { 
-                tag: "永和國中", 
-                title: "57週年校慶 Truss結構", 
-                images: ["https://i.postimg.cc/3rs5P7dS/image.jpg"] 
-            }
-            // ...其餘 photoLibrary 資料請依照 js.txt 補全
-        };
-
-        // 自動產生 PWA Manifest (騙過瀏覽器安裝)
-        const manifest = { "name": "八毅活動工程官網", "short_name": "八毅官網", "display": "standalone", "start_url": window.location.href };
-        const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-        const link = document.createElement('link'); link.rel = 'manifest'; link.href = URL.createObjectURL(blob);
-        document.head.appendChild(link);
-
-        function hideLoader() {
-            const loader = document.getElementById('loading-screen');
-            loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 500);
-        }
-    </script>
+    <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
