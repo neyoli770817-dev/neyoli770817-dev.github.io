@@ -813,16 +813,16 @@ window.onload = function() {
         loadGallery('gallery-5', photos_Decor);
     } catch (err) {
         console.warn("部分內容加載略有延遲，跳過錯誤繼續執行:", err);
+    /* 將 window.onload 裡面的最後這段替換掉 */
     } finally {
         const loader = document.getElementById('loading-screen');
         if(loader) {
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => { 
-                    loader.style.display = 'none'; 
-                    document.body.style.overflow = 'auto';
-                }, 800);
-            }, 1000); 
+            console.log("【DEBUG】正在暴力移除遮罩層...");
+            // 直接不等動畫了，直接砍掉它
+            loader.style.display = 'none'; 
+            loader.style.zIndex = '-1'; // 確保它滾到最底層
+            document.body.style.overflow = 'auto'; // 強制恢復滾動條
+            console.log("【DEBUG】遮罩層已強制關閉");
         }
     }
 };
