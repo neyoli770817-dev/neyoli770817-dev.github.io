@@ -15,9 +15,11 @@
 :root { 
     --brand-red: #722F37; /* 品牌酒紅 */
     --bg-light: #f8f9fa; 
-    body.is-loading { overflow: hidden !important; }
     --text-dark: #333;
 }
+
+/* 👉 這裡就是唯一的修改點：把這行從 :root 裡面搬出來！ */
+body.is-loading { overflow: hidden !important; }
 
 body, html { 
     font-family: "Microsoft JhengHei", sans-serif; 
