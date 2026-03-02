@@ -955,7 +955,7 @@ let currentProject = null, currentImgIdx = 0;
 function switchModel(modelType, element) {
     // 1. 更新選單 active 狀態
     document.querySelectorAll('#model-list button').forEach(btn => btn.classList.remove('active'));
-    element.classList.add('active');
+    if (element) element.classList.add('active');
 
     // 2. 獲取 DOM 元素
     const viewer = document.getElementById('main-viewer');
@@ -964,33 +964,37 @@ function switchModel(modelType, element) {
     const title = document.getElementById('model-title');
     const specs = document.getElementById('model-specs');
 
-    // 3. 根據選項切換顯示
+    // 3. 邏輯處理
     if (modelType === 'portfolio') {
-        viewer.style.display = 'none';
-        hint.style.display = 'none';
-        album.style.display = 'block';
+        // 隱藏模型、顯示相簿
+        if (viewer) viewer.style.display = 'none';
+        if (hint) hint.style.display = 'none';
+        if (album) album.style.display = 'block';
+        
         title.innerText = '活動實績展示';
-        specs.innerHTML = '<p>精選過往案例，歡迎參考我們的佈置風格。</p>';
-    } else {
-        viewer.style.display = 'block';
-        hint.style.display = 'block';
-        album.style.display = 'none';
+        specs.innerHTML = '<p>載入中...</p>';
 
-        // 這裡填入你的模型邏輯
+        // 呼叫原本的 gallery 功能
+        if (typeof loadGallery === 'function') {
+            loadGallery(); 
+        } else {
+            console.error("錯誤：找不到 loadGallery 函式，請確認該 JS 檔案是否已載入。");
+            specs.innerHTML = '<p>系統錯誤：無法載入相簿。</p>';
+        }
+
+    } else {
+        // 顯示模型、隱藏相簿
+        if (viewer) viewer.style.display = 'block';
+        if (hint) hint.style.display = 'block';
+        if (album) album.style.display = 'none';
+
+        // 模型更新邏輯
         if (modelType === 'table') {
             viewer.src = 'https://neyoli770817-dev.github.io/Bayi-Official-Site/Conference_Table_textured_mesh_glb.glb';
             title.innerText = '全白會議桌';
             specs.innerHTML = '<p><strong>尺寸：</strong> 180 x 60 x 75 cm</p><p><strong>材質：</strong> 木質桌面 / 鋼製腳架</p>';
-        } else if (modelType === 'chair_black') {
-            // 記得換成你的檔案路徑
-            viewer.src = 'path/to/chair_black.glb';
-            title.innerText = '黑金剛摺疊椅';
-            specs.innerHTML = '<p>高強度鋼材，穩定耐用。</p>';
-        } else if (modelType === 'chair_snack') {
-            viewer.src = 'path/to/chair_snack.glb';
-            title.innerText = '點心椅';
-            specs.innerHTML = '<p>輕便舒適，適合各類茶點區。</p>';
         }
+        // ... 其他模型設定 ...
     }
 }
 
