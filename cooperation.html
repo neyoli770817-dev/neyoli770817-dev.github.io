@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>企業合作 - 八毅硬體結構</title>
+    <title>企業合作 | 八毅硬體結構</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* 統一的深酒紅配色 */
         :root {
-            --deep-wine-red: #66001a; /* 這是比原本更深、更有質感的酒紅色 */
-        }
-        
-        /* 導覽列與 Header 顏色統一 */
-        .navbar-custom {
-            background-color: var(--deep-wine-red);
+            --deep-wine-red: #66001a;
         }
         .wine-header {
             background-color: var(--deep-wine-red);
             color: #ffffff;
             padding: 60px 20px;
         }
-
-        /* 內容區塊設定 */
         .content-section { padding: 50px 0; }
+        .highlight-card {
+            background-color: #fdfdfd;
+            border-left: 5px solid var(--deep-wine-red);
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .service-list { list-style: none; padding: 0; }
+        .service-list li { margin-bottom: 15px; font-size: 1.1rem; }
+        .service-list li::before { content: '✔'; color: var(--deep-wine-red); margin-right: 10px; font-weight: bold; }
         .contact-box {
             background-color: #f8f9fa;
-            border-left: 5px solid var(--deep-wine-red);
-            padding: 20px;
-            margin-top: 30px;
+            border: 1px solid #eee;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -52,26 +55,55 @@
 <header class="wine-header text-center">
     <div class="container">
         <h1 class="fw-bold">企業合作</h1>
-        <p class="lead">與八毅同行，共創活動新高度</p>
+        <p class="lead">專業技術與靈活調度，成為您最強大的活動後盾</p>
     </div>
 </header>
 
 <main class="container content-section">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8 px-4">
-            <p class="fs-5 mb-5 text-secondary">
-                專業的活動規劃，需要同樣專業的硬體後盾。八毅（Bayi）深耕北北基桃地區，專注於各類商務活動、大型展覽及公關造勢的結構搭建。我們不僅僅是設備供應商，更是您活動現場的技術夥伴。
+            
+            <h2 class="mb-4">您的活動，值得專業的硬體後盾</h2>
+            <p class="fs-5 text-secondary mb-5">
+                在活動產業中，八毅（Bayi）深知每一場盛事背後，都承載著客戶的願景與信任。我們不僅僅是設備供應商，更是您現場的戰略夥伴。透過紮實的專業技術與深耕北北基桃的在地服務，我們致力於將創意轉化為完美現場。
             </p>
-            <h2 class="mb-4">為什麼選擇與我們長期合作？</h2>
-            <ul class="list-unstyled mb-5">
-                <li class="mb-3"><strong>在地化快速響應：</strong> 立足蘆洲，輻射北北基桃，確保設備進退場精準到位。</li>
-                <li class="mb-3"><strong>高規格硬體品質：</strong> 定期維護 Truss、帳篷、舞台等設備，確保結構安全無虞。</li>
-                <li class="mb-3"><strong>整合性執行能力：</strong> 從場地勘查、動線規劃到硬體佈建，大幅降低溝通成本。</li>
-            </ul>
+
+            <div class="highlight-card">
+                <h3 class="mb-3 text-dark">為什麼選擇八毅作為長期合作夥伴？</h3>
+                <ul class="service-list">
+                    <li><strong>在地化優勢：</strong> 總部設於蘆洲，鄰近五股與台北市，全區快速調度，解決突發狀況。</li>
+                    <li><strong>高規格硬體：</strong> 所有 Truss、舞台、帳篷設備皆定期維護，確保結構安全與外觀美感。</li>
+                    <li><strong>專業整合力：</strong> 提供勘查、動線規劃、搭建、拆除的一站式服務，降低跨部門溝通成本。</li>
+                    <li><strong>執行效率：</strong> 豐富的商務與公關活動經驗，精準掌握進退場時間，確保活動準時啟動。</li>
+                </ul>
+            </div>
+
+            <h3 class="mt-5 mb-4">我們提供的專業範疇</h3>
+            <p>我們專注於各類中大型活動現場需求，包含但不限於：</p>
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <ul>
+                        <li>商務會議與展覽 Truss 搭建</li>
+                        <li>品牌公關造勢活動結構</li>
+                        <li>戶外大型遮陽與活動帳篷</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li>各式專業活動舞台工程</li>
+                        <li>場地安全動線整合規劃</li>
+                        <li>客製化硬體租賃方案</li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="contact-box">
-                <h3 class="h4">立即洽詢合作方案</h3>
-                <p>Email: <a href="mailto:o0ending0o1592@gmail.com" class="text-decoration-none" style="color: #66001a;">o0ending0o1592@gmail.com</a></p>
-                <p>Tel: <a href="tel:0222882321" class="text-decoration-none" style="color: #66001a;">(02)2288-2321</a></p>
+                <h3 class="h4 mb-3">立即洽詢企業合作方案</h3>
+                <p>我們誠摯邀請公關公司、活動企劃團隊與企業主與我們接洽，討論您的下一個專案。</p>
+                <hr>
+                <p class="mb-1"><strong>合作專線：</strong> (02)2288-2321</p>
+                <p class="mb-1"><strong>聯絡 Email：</strong> <a href="mailto:o0ending0o1592@gmail.com">o0ending0o1592@gmail.com</a></p>
+                <p class="mb-0"><strong>服務據點：</strong> 新北市蘆洲區復興路323巷10號</p>
             </div>
         </div>
     </div>
@@ -80,7 +112,7 @@
 <footer class="bg-dark text-white py-4 mt-5">
     <div class="container text-center">
         <p class="mb-2">&copy; 2026 八毅硬體結構. All rights reserved.</p>
-        <p class="mb-2">服務區域：北北基桃在地深耕 | 蘆洲據點</p>
+        <p class="mb-2">服務區域：北北基桃在地深耕 | 蘆洲總部</p>
     </div>
 </footer>
 
