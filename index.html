@@ -548,15 +548,40 @@ body, html {
     </div>
 </main>
     
-<div class="modal fade" id="modalChairs" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">桌椅租賃</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>詳細規格內容...</p></div><div class="modal-footer"><a href="#" class="btn btn-danger" onclick="openAlbumTab('tab-1'); return false;">查看相簿</a></div></div></div></div>
+<div class="col">
+    <div class="card h-100 border-0 shadow-sm glow-card-final" onclick="openProductModal('chairs')" style="cursor: pointer;">
+        <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/KzhB61hF/黎國際_漢來飯店_高8桌_進場.jpg" class="card-img-top object-fit-cover"></div>
+        <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">桌椅租賃</h6></div>
+    </div>
+</div>
 
-<div class="modal fade" id="modalTruss" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Truss 結構</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>詳細規格內容...</p></div><div class="modal-footer"><a href="#" class="btn btn-danger" onclick="openAlbumTab('tab-2'); return false;">查看相簿</a></div></div></div></div>
+<div class="col">
+    <div class="card h-100 border-0 shadow-sm glow-card-final" onclick="openProductModal('truss')" style="cursor: pointer;">
+        <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/HLybvQKF/黎國際_三重水樣啵啵_Truss進場.jpg" class="card-img-top object-fit-cover"></div>
+        <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">Truss 結構</h6></div>
+    </div>
+</div>
 
-<div class="modal fade" id="modalTent" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">帳篷設備</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>詳細規格內容...</p></div><div class="modal-footer"><a href="#" class="btn btn-danger" onclick="openAlbumTab('tab-3'); return false;">查看相簿</a></div></div></div></div>
+<div class="col">
+    <div class="card h-100 border-0 shadow-sm glow-card-final" onclick="openProductModal('tents')" style="cursor: pointer;">
+        <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/90pdtCSX/日坊_竹林山觀音寺_帝王帳_進場.jpg" class="card-img-top object-fit-cover"></div>
+        <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">帳篷設備</h6></div>
+    </div>
+</div>
 
-<div class="modal fade" id="modalStage" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">舞台架設</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>詳細規格內容...</p></div><div class="modal-footer"><a href="#" class="btn btn-danger" onclick="openAlbumTab('tab-4'); return false;">查看相簿</a></div></div></div></div>
+<div class="col">
+    <div class="card h-100 border-0 shadow-sm glow-card-final" onclick="openProductModal('stage')" style="cursor: pointer;">
+        <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/N0swp4LW/109886(1).jpg" class="card-img-top object-fit-cover"></div>
+        <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">舞台架設</h6></div>
+    </div>
+</div>
 
-<div class="modal fade" id="modalOthers" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">活動周邊配件</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>詳細規格內容...</p></div><div class="modal-footer"><a href="#" class="btn btn-danger" onclick="openAlbumTab('tab-5'); return false;">查看相簿</a></div></div></div></div>
+<div class="col">
+    <div class="card h-100 border-0 shadow-sm glow-card-final" onclick="openProductModal('others')" style="cursor: pointer;">
+        <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/7PGvv4fG/S-18309127.jpg" class="card-img-top object-fit-cover"></div>
+        <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">活動周邊配件</h6></div>
+    </div>
+</div>
 
 <div class="modal fade" id="albumModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -1128,7 +1153,7 @@ window.addEventListener('load', function() {
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" id="gallery-btn" class="btn btn-danger" onclick="openAlbumTab(this.dataset.tab); return false;">查看相簿</a>
+                <a href="#" id="gallery-btn" class="btn btn-danger" onclick="closeAndOpenAlbum(); return false;">查看相簿</a>
             </div>
         </div>
     </div>
