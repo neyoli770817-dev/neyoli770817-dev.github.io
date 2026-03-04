@@ -467,47 +467,61 @@ body, html {
     <div class="container" style="max-width: 1400px;">
         <div class="d-grid" style="grid-template-columns: 1fr 450px; gap: 80px; align-items: start;">
             
-           <div class="service-section" id="album-container">
-    <h3 class="fw-bold mb-4" style="color: #BA2D30; border-left: 5px solid #BA2D30; padding-left: 15px;">專業服務項目</h3>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col"><div class="card h-100 border-0 shadow-sm glow-card-final" onclick="updateDisplay('table')" style="cursor: pointer;"><div class="ratio ratio-4x3"><img src="https://i.postimg.cc/KzhB61hF/黎國際_漢來飯店_高8桌_進場.jpg" class="card-img-top object-fit-cover"></div><div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">桌椅租賃</h6></div></div></div>
-        
-        <div class="col"><div class="card h-100 border-0 shadow-sm glow-card-final" onclick="updateDisplay('truss')" style="cursor: pointer;"><div class="ratio ratio-4x3"><img src="https://i.postimg.cc/HLybvQKF/黎國際_三重水樣啵啵_Truss進場.jpg" class="card-img-top object-fit-cover"></div><div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">Truss 結構</h6></div></div></div>
-        
-        <div class="col"><div class="card h-100 border-0 shadow-sm glow-card-final" onclick="updateDisplay('tent')" style="cursor: pointer;"><div class="ratio ratio-4x3"><img src="https://i.postimg.cc/90pdtCSX/日坊_竹林山觀音寺_帝王帳_進場.jpg" class="card-img-top object-fit-cover"></div><div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">帳篷設備</h6></div></div></div>
-        
-        <div class="col"><div class="card h-100 border-0 shadow-sm glow-card-final" onclick="updateDisplay('stage')" style="cursor: pointer;"><div class="ratio ratio-4x3"><img src="https://i.postimg.cc/N0swp4LW/109886(1).jpg" class="card-img-top object-fit-cover"></div><div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">舞台架設</h6></div></div></div>
-        
-        <div class="col"><div class="card h-100 border-0 shadow-sm glow-card-final" onclick="updateDisplay('decor')" style="cursor: pointer;"><div class="ratio ratio-4x3"><img src="https://i.postimg.cc/7PGvv4fG/S-18309127.jpg" class="card-img-top object-fit-cover"></div><div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">活動周邊配件</h6></div></div></div>
-    </div>
-
-    <div id="display-panel" class="mt-5 p-4 border rounded shadow-sm bg-white" style="display: none;">
-        <div class="row align-items-center">
-            <div class="col-md-5"><img id="display-img" src="" class="img-fluid rounded" style="width:100%; object-fit:cover;"></div>
-            <div class="col-md-7">
-                <h3 id="display-title" class="fw-bold" style="color: #BA2D30;">請選擇服務</h3>
-                <hr>
-                <div id="display-specs" class="text-secondary"></div>
+            <div class="service-section" id="album-container">
+                <h3 class="fw-bold mb-4" style="color: #BA2D30; border-left: 5px solid #BA2D30; padding-left: 15px;">專業服務項目</h3>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm glow-card-final" data-bs-toggle="modal" data-bs-target="#equipmentModal" style="cursor: pointer;">
+                            <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/KzhB61hF/黎國際_漢來飯店_高8桌_進場.jpg" class="card-img-top object-fit-cover"></div>
+                            <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">桌椅租賃</h6></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm glow-card-final" data-bs-toggle="modal" data-bs-target="#albumModal" onclick="setTimeout(()=>{ document.getElementById('tab-2').click(); }, 200)" style="cursor: pointer;">
+                            <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/HLybvQKF/黎國際_三重水樣啵啵_Truss進場.jpg" class="card-img-top object-fit-cover"></div>
+                            <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">Truss 結構</h6></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm glow-card-final" data-bs-toggle="modal" data-bs-target="#albumModal" onclick="setTimeout(()=>{ document.getElementById('tab-3').click(); }, 200)" style="cursor: pointer;">
+                            <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/90pdtCSX/日坊_竹林山觀音寺_帝王帳_進場.jpg" class="card-img-top object-fit-cover"></div>
+                            <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">帳篷設備</h6></div>
+                         </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm glow-card-final" data-bs-toggle="modal" data-bs-target="#albumModal" onclick="setTimeout(()=>{ document.getElementById('tab-4').click(); }, 200)" style="cursor: pointer;">
+                            <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/N0swp4LW/109886(1).jpg" class="card-img-top object-fit-cover"></div>
+                            <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">舞台架設</h6></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm glow-card-final" data-bs-toggle="modal" data-bs-target="#albumModal" onclick="setTimeout(()=>{ document.getElementById('tab-5').click(); }, 200)" style="cursor: pointer;">
+                            <div class="ratio ratio-4x3"><img src="https://i.postimg.cc/7PGvv4fG/S-18309127.jpg" class="card-img-top object-fit-cover"></div>
+                            <div class="card-body bg-white p-3 text-center"><h6 class="fw-bold text-dark mb-0">活動周邊配件</h6></div>             
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
             <div class="control-section" id="model-container">
                 <h3 class="fw-bold mb-4" style="color: #BA2D30; border-left: 5px solid #BA2D30; padding-left: 15px;">數位控管系統</h3>
                 <div class="card border-0 shadow-lg glow-card-final position-relative" style="border-radius: 15px; overflow: hidden; width: 100%;">
+                    
                     <div id="auth-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100; display:flex; flex-direction:column; justify-content:center; align-items:center; opacity:0; pointer-events:none; transition:0.5s;">
                         <h5 class="text-white mb-3">請輸入管理代碼</h5>
                         <input type="password" id="access-code" class="form-control mb-3" style="width:200px; text-align:center;" placeholder="Enter Code">
                         <button class="btn btn-danger w-50" onclick="checkAccess()">驗證登入</button>
                         <button class="btn btn-link text-white mt-2" onclick="hideAuth()">取消</button>
                     </div>
+
                     <div class="card-header bg-dark text-white py-2 d-flex justify-content-between align-items-center">
                         <span class="small fw-bold">ALIGNMENT MONITOR</span>
                         <span class="badge rounded-pill bg-danger animate-pulse">LIVE</span>
                     </div>
+
                     <div class="ratio ratio-16x9 bg-black">
                         <iframe id="iframe-3d" src="https://3dwarehouse.sketchup.com/embed/1b90ef55-f425-497c-a26e-444676dd14dd" frameborder="0" scrolling="no" allowfullscreen style="position: absolute; width: 100%; height: 100%; border: none;"></iframe>
+                        
                         <div id="progress-panel" style="position:absolute; width:100%; height:100%; background:#fff; display:none; z-index:5;">
                             <img src="https://i.postimg.cc/HLybvQKF/黎國際_三重水樣啵啵_Truss進場.jpg" style="width:100%; height:100%; object-fit:cover;">
                             <div style="position:absolute; bottom:0; background:rgba(0,0,0,0.7); color:#fff; width:100%; padding:10px; font-size:0.8rem;">
@@ -515,6 +529,7 @@ body, html {
                             </div>
                         </div>
                     </div>
+
                     <div class="card-body bg-white p-4">
                         <div class="btn-group w-100 mb-4 shadow-sm">
                             <button id="btn-3d" class="btn btn-danger py-2 fw-bold" onclick="toggleMonitor('3d')">3D實景範例</button>
@@ -527,15 +542,17 @@ body, html {
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </main>
-
+    
 <section class="social-section" style="background-color: #722F37 !important; color: #ffffff !important; text-align: center; padding: 3.5rem 0; width: 100%; margin-bottom: 50px; display: block;">
     <div class="container-fluid">
         <h3 style="color: #ffffff !important; font-size: 2.2rem !important; font-weight: 900 !important; margin-bottom: 30px !important; display: block !important; visibility: visible !important; opacity: 1 !important;">
             加入粉絲團
         </h3>
+        
         <div class="social-icons d-flex justify-content-center align-items-center" style="gap: 35px;">
             <a href="https://line.me/R/ti/p/@998cnhao" target="_blank" rel="noopener noreferrer" style="color: #ffffff !important; font-size: 3.5rem; text-decoration: none; display: inline-block;">
                 <i class="bi bi-line"></i>
@@ -550,12 +567,57 @@ body, html {
                 <i class="bi bi-chat-dots"></i>
             </a> 
         </div>
+        
         <p style="margin-top: 40px; opacity: 0.8; font-size: 1rem; color: #ffffff !important;">
             &copy; 2026 八毅硬體結構 版權所有
         </p>
     </div>
 </section>
 
+        <div class="d-grid" style="grid-template-columns: 1fr 450px; gap: 80px; align-items: start;">
+            <div class="service-section"> ... </div>
+            <div class="control-section"> ... </div>
+        </div>
+
+    </div>
+</main>
+    
+<div class="modal fade" id="equipmentModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title"><i class="bi bi-box-seam me-2"></i>設備規格 3D 預覽</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="row g-0">
+                    <div class="col-md-3 modal-sidebar">
+                        <div class="list-group list-group-flush" id="model-list">
+                            <button class="list-group-item list-group-item-action active" onclick="switchModel('table', this)">全白會議桌</button>
+                            <button class="list-group-item list-group-item-action" onclick="switchModel('chair_black', this)">黑金剛摺疊椅</button>
+                            <button class="list-group-item list-group-item-action" onclick="switchModel('chair_snack', this)">點心椅</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 bg-light position-relative">
+                        <model-viewer id="main-viewer" src="https://neyoli770817-dev.github.io/Bayi-Official-Site/Conference_Table_textured_mesh_glb.glb" auto-rotate camera-controls shadow-intensity="1" style="width: 100%; height: 500px; outline: none;">
+                        </model-viewer>
+                        <div class="position-absolute bottom-0 w-100 text-center text-muted small pb-2">
+                            <i class="bi bi-hand-index-thumb"></i> 可拖曳旋轉 / 滾輪縮放
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-4 bg-white">
+                        <h4 id="model-title" class="fw-bold" style="color: #722F37;">全白會議桌</h4>
+                        <hr>
+                        <div id="model-specs" style="line-height: 1.8; color: #555;">
+                            <p><strong>尺寸：</strong> 180 x 60 x 75 cm</p>
+                            <p><strong>材質：</strong> 木質桌面 / 鋼製腳架</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="albumModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -594,6 +656,12 @@ body, html {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+
+var modelData = {
+    'table': { src: 'https://neyoli770817-dev.github.io/Bayi-Official-Site/Conference_Table_textured_mesh_glb.glb', title: '全白會議桌', specs: '<p><strong>尺寸：</strong> 180 x 60 x 75 cm</p><p><strong>材質：</strong> 木質桌面 / 鋼製腳架</p>' },
+    'chair_black': { src: 'https://neyoli770817-dev.github.io/3D-Model/Chair_textured_mesh_glb.glb', title: '黑金剛摺疊椅', specs: '<p><strong>尺寸：</strong> 45 x 45 x 80 cm</p><p><strong>材質：</strong> 強化塑鋼 / 黑鐵烤漆</p>' },
+    'chair_snack': { src: 'https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/StrozziChair/glTF-Binary/StrozziChair.glb', title: '點心椅', specs: '<p><strong>尺寸：</strong> 50 x 52 x 85 cm</p><p><strong>材質：</strong> 透氣網布 / 鋁合金</p>' }
+};
 
 let photos_Tables = [
     "mk9LxTzv", "kGFc1xVC", "MK551m2x", "NMvm3Kvg", "T29PC76C", "Y23YP2XZ", "153w1x21", "GhJmRp8C"
@@ -886,32 +954,21 @@ balloonUrls.forEach((url, index) => {
 });
 
 
-// --- 1. 相簿與燈箱變數 ---
 let currentProject = null, currentImgIdx = 0;
 
-// --- 2. 服務項目顯示邏輯 (新的顯示區) ---
-const serviceData = {
-    'table': { title: '桌椅租賃', img: 'https://i.postimg.cc/KzhB61hF/黎國際_漢來飯店_高8桌_進場.jpg', specs: '<ul><li>尺寸：180x60cm</li><li>規格：會議桌/折疊椅</li><li>特色：穩固、美觀</li></ul>' },
-    'truss': { title: 'Truss 結構', img: 'https://i.postimg.cc/HLybvQKF/黎國際_三重水樣啵啵_Truss進場.jpg', specs: '<ul><li>材質：鋁合金/鐵管</li><li>應用：背板架設、造型燈架</li></ul>' },
-    'tent': { title: '帳篷設備', img: 'https://i.postimg.cc/90pdtCSX/日坊_竹林山觀音寺_帝王帳_進場.jpg', specs: '<ul><li>種類：帝王帳/宮廷帳</li><li>優勢：防風、防水、美觀</li></ul>' },
-    'stage': { title: '舞台架設', img: 'https://i.postimg.cc/N0swp4LW/109886(1).jpg', specs: '<ul><li>規格：客製化高度</li><li>服務：舞台毯、階梯、護欄</li></ul>' },
-    'decor': { title: '活動周邊', img: 'https://i.postimg.cc/7PGvv4fG/S-18309127.jpg', specs: '<ul><li>項目：紅絨柱、指示牌、燈光</li><li>特點：營造活動氣氛</li></ul>' }
-};
-
-function updateDisplay(type) {
-    const data = serviceData[type];
-    const panel = document.getElementById('display-panel');
-    if (!data || !panel) return;
-
-    document.getElementById('display-img').src = data.img;
-    document.getElementById('display-title').innerText = data.title;
-    document.getElementById('display-specs').innerHTML = data.specs;
-
-    panel.style.display = 'block';
-    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+function switchModel(type) {
+    const data = modelData[type];
+    if (!data) return;
+    const viewer = document.getElementById('main-viewer');
+    if(viewer) viewer.src = data.src;
+    document.getElementById('model-title').innerText = data.title;
+    document.getElementById('model-specs').innerHTML = data.specs; 
+    document.getElementById('btn-3d').classList.replace('btn-dark', 'btn-danger');
+    document.getElementById('btn-real').classList.replace('btn-danger', 'btn-dark');
+    document.getElementById('model-container').style.display = 'block';
+    document.getElementById('album-container').style.display = 'none';
 }
 
-// --- 3. 原有的相簿燈箱邏輯 ---
 function loadGallery(containerId, list) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -977,9 +1034,11 @@ function closeLightbox() {
     document.body.style.overflow = 'auto'; 
 }
 
-// --- 4. 網頁載入執行 ---
+
 window.addEventListener('load', function() {
+   
     try {
+        
         loadGallery('gallery-1', photos_Tables);
         loadGallery('gallery-2', photos_Truss);
         loadGallery('gallery-3', photos_Tent);
@@ -990,20 +1049,24 @@ window.addEventListener('load', function() {
         console.warn("⚠️ 相簿加載異常:", e);
     }
 
-    // Logo Loading 轉場 (保持原樣)
     const loader = document.getElementById('loading-screen');
     if (loader) {
+      
         setTimeout(() => {
             loader.style.opacity = '0'; 
+            
             setTimeout(() => {
                 loader.style.display = 'none'; 
                 loader.style.zIndex = '-1';
                 document.body.classList.remove('is-loading');
                 document.body.style.overflow = 'auto'; 
+                console.log("🚀 這次 Logo 有跑完才開門！");
             }, 850); 
+            
         }, 2500); 
     }
 });
+</script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
