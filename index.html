@@ -148,6 +148,15 @@ body, html {
         gap: 20px !important; /* 間距縮小 */
     }
 }
+        /* 電腦版：強制指定左右欄位寬度 */
+@media (min-width: 992px) {
+    .d-grid {
+        display: grid !important;
+        grid-template-columns: 8fr 4fr !important; /* 左邊佔 8 份，右邊佔 4 份 */
+        gap: 40px !important; /* 左右間距 */
+        align-items: start !important;
+    }
+}
 
 .my-main-container {
     display: flex; 
