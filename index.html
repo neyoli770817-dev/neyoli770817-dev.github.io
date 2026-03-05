@@ -664,41 +664,16 @@ function openProductModal(catKey) {
     new bootstrap.Modal(document.getElementById('productModal')).show();
 }
 
-// 確保 currentTabId 是全域變數 (你在上方已經宣告過了)
-let currentTabId = ''; 
-
+// 3. 點擊「查看相簿」的特殊處理
 function closeProductAndOpenAlbum() {
-    const productModalEl = document.getElementById('productModal');
-    const productModal = bootstrap.Modal.getInstance(productModalEl);
+    const modalEl = document.getElementById('productModal');
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    modal.hide(); // 關閉產品視窗
     
-    // 1. 關閉產品視窗
-    productModal.hide();
-
-    // 2. 關鍵：等待「產品視窗」完全關閉後，再執行打開相簿的動作
-    productModalEl.addEventListener('hidden.bs.modal', function () {
+    // 呼叫原本相簿的邏輯
+    setTimeout(() => {
         openAlbumTab(currentTabId);
-    }, { once: true }); // { once: true } 很重要，避免重複監聽
-}
-
-function openAlbumTab(tabId) {
-    const albumModalEl = document.getElementById('ProductAlbum');
-    if (!albumModalEl) {
-        console.error("找不到 ProductAlbum，請確認 HTML ID 是否拼寫正確");
-        return;
-    }
-
-    // 1. 建立並開啟相簿 Modal
-    const albumModal = new bootstrap.Modal(albumModalEl);
-    albumModal.show();
-
-    // 2. 關鍵：等待「相簿視窗」完全顯示後，再切換內部的 Tab
-    albumModalEl.addEventListener('shown.bs.modal', function () {
-        const tabTriggerEl = document.getElementById(tabId);
-        if (tabTriggerEl) {
-            const tab = new bootstrap.Tab(tabTriggerEl);
-            tab.show();
-        }
-    }, { once: true });
+    }, 300);
 }
 
 let photos_Tables = [
