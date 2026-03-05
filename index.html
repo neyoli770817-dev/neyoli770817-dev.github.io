@@ -144,12 +144,13 @@ body, html {
     background: var(--brand-red); margin: 15px auto; 
 }
 
-@media (min-width: 1200px) {
+@media (max-width: 991px) {
     .container-fluid, .main-wrapper { 
         padding-left: 6% !important; padding-right: 6% !important; 
     }
-    .main-wrapper { 
-        padding-left: 8% !important; padding-right: 8% !important; 
+    main-wrapper .container > .d-grid {
+        grid-template-columns: 1fr !important; /* 變成單欄 */
+        gap: 20px !important; /* 間距縮小 */
     }
 }
 
@@ -465,7 +466,7 @@ body, html {
 
 <main class="main-wrapper py-5">
     <div class="container" style="max-width: 1400px;">
-        <div class="d-grid" style="grid-template-columns: 1fr 450px; gap: 80px; align-items: start;">
+        <div class="d-grid custom-grid-layout" style="align-items: start;">
             
             <div class="service-section" id="album-container">
                 <h3 class="fw-bold mb-4" style="color: #BA2D30; border-left: 5px solid #BA2D30; padding-left: 15px;">專業服務項目</h3>
