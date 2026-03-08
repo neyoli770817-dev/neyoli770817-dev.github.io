@@ -682,7 +682,7 @@ function openProductModal(catKey) {
 }
 
 // 3. 點擊「查看相簿」的特殊處理
-function closeProductAndOpenAlbum() {
+function closeProductAndOpenAlbum(currentTabId) {
     const modalEl = document.getElementById('productModal');
     const modal = bootstrap.Modal.getInstance(modalEl);
     modal.hide(); // 關閉產品視窗
