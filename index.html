@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="7o8o6r3uEbED_5QpoN-259MRNZC_HPPmaunm7xorudo" />
+    <meta charset="UTF-8">
+    <title>八毅硬體結構 - 專業帳篷 ｜Truss ｜舞台 ｜桌椅｜各項活動周邊</title>
+    <head>
+    <meta charset="UTF-8">
     <title>八毅硬體結構 - 專業帳篷、Truss、舞台架設租賃</title>
-
+    
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -17,11 +19,16 @@
 
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon.png">
+    
+    </head>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
     <style>
 
 :root { 
@@ -579,6 +586,32 @@ body, html {
         </p>
     </div>
 </section>
+
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="prod-modal-title">產品詳情</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="list-group" id="prod-list"></div>
+                    </div>
+                    <div class="col-md-8">
+                        <img id="prod-img" src="" class="img-fluid mb-3" style="width:100%; height:250px; object-fit:cover; border-radius:8px;">
+                        <h4 id="prod-name" class="fw-bold"></h4>
+                        <p id="prod-specs" class="text-muted"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="closeProductAndOpenAlbum()">查看相簿</button>
+            </div>
+        </div>
+    </div>
+</div>
     
 <div id="imgLightbox" class="lightbox-overlay" onclick="closeLightbox()" style="display:none;"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -587,29 +620,29 @@ body, html {
 
     // 1. 定義所有產品資料
 const productLibrary = {
-    'chairs': { title: '桌椅租賃', tab: 'chairs', items: [
+    'chairs': { title: '桌椅租賃', tab: 'tab-1', items: [
         { name: '會議桌', img: 'https://via.placeholder.com/300', specs: '尺寸：180x60x75cm<br>材質：木質桌面/鋼製腳架' },
         { name: '黑金剛摺疊椅', img: 'https://via.placeholder.com/300', specs: '尺寸：45x45x80cm<br>材質：強化塑鋼/黑鐵烤漆' },
         { name: '點心椅', img: 'https://via.placeholder.com/300', specs: '尺寸：50x52x85cm<br>材質：透氣網布/鋁合金' }
     ]},
-    'truss': { title: 'Truss 結構', tab: 'truss', items: [
+    'truss': { title: 'Truss 結構', tab: 'tab-2', items: [
         { name: '造型Truss', img: 'https://via.placeholder.com/300', specs: '規格說明：客製化造型，結構穩固。' },
         { name: '牌樓Truss', img: 'https://via.placeholder.com/300', specs: '規格說明：活動入口門面專用。' },
         { name: '背板Truss', img: 'https://via.placeholder.com/300', specs: '規格說明：拍照背板/舞台背景專用。' }
     ]},
-    'tents': { title: '帳篷設備', tab: 'tants', items: [
+    'tents': { title: '帳篷設備', tab: 'tab-3', items: [
         { name: '圓拱帳', img: 'https://via.placeholder.com/300', specs: '規格：半圓形結構，美觀大方。' },
         { name: '宮廷帳', img: 'https://via.placeholder.com/300', specs: '規格：尖頂設計，適合戶外婚禮。' },
         { name: '屋型帳', img: 'https://via.placeholder.com/300', specs: '規格：標準屋型，空間寬敞。' },
         { name: '阿里山帳', img: 'https://via.placeholder.com/300', specs: '規格：耐候強，適合大面積遮陽。' }
     ]},
-    'stage': { title: '舞台架設', tab: 'stage', items: [
+    'stage': { title: '舞台架設', tab: 'tab-4', items: [
         { name: '3*6木質舞台板', img: 'https://via.placeholder.com/300', specs: '規格：耐重木質板材。' },
         { name: '6*6木質舞台板', img: 'https://via.placeholder.com/300', specs: '規格：大型活動首選。' },
         { name: '一步梯', img: 'https://via.placeholder.com/300', specs: '規格：輕便鋁製。' },
         { name: '三步梯', img: 'https://via.placeholder.com/300', specs: '規格：安全扶手設計。' }
     ]},
-    'others': { title: '活動周邊配件', tab: 'others', items: [
+    'others': { title: '活動周邊配件', tab: 'tab-5', items: [
         { name: '紅絨柱', img: 'https://via.placeholder.com/300', specs: '規格：金色/銀色立柱。' },
         { name: '三角錐', img: 'https://via.placeholder.com/300', specs: '規格：高可見度反光條。' },
         { name: '指示立牌', img: 'https://via.placeholder.com/300', specs: '規格：A3/A4 規格。' },
@@ -1075,52 +1108,5 @@ window.addEventListener('load', function() {
     }
 });
     </script>
-           <div class="modal fade" id="ProductAlbum" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">實景相簿</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="chairs-tab" data-bs-toggle="pill" data-bs-target="#chairs" type="button" role="tab">桌椅類</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="truss-tab" data-bs-toggle="pill" data-bs-target="#truss" type="button" role="tab">Truss類</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="tents-tab" data-bs-toggle="pill" data-bs-target="#tents" type="button" role="tab">帳篷類</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="stage-tab" data-bs-toggle="pill" data-bs-target="#stage" type="button" role="tab">舞台類</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="others-tab" data-bs-toggle="pill" data-bs-target="#others" type="button" role="tab">周邊配件</button>
-                    </li>
-                </ul>
-                <hr>
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade" id="chairs" role="tabpanel">
-                        <div class="row g-2" id="chairs-gallery"></div>
-                    </div>
-                    <div class="tab-pane fade" id="truss" role="tabpanel">
-                        <div class="row g-2" id="truss-gallery"></div>
-                    </div>
-                    <div class="tab-pane fade" id="tents" role="tabpanel">
-                        <div class="row g-2" id="tents-gallery"></div>
-                    </div>
-                    <div class="tab-pane fade" id="stage" role="tabpanel">
-                        <div class="row g-2" id="stage-gallery"></div>
-                    </div>
-                    <div class="tab-pane fade" id="others" role="tabpanel">
-                        <div class="row g-2" id="others-gallery"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
    </body>
 </html>
