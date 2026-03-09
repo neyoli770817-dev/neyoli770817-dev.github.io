@@ -436,7 +436,6 @@ body, html {
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#albumModal"><i class="bi bi-images me-1"></i>活動相簿</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
                 <li class="nav-item"><a class="nav-link" href="cooperation.html">企業合作</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.html">關於八毅</a></li>
@@ -618,7 +617,8 @@ body, html {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     
 <script>
-// 1. 核心資料定義 (確保 tab 對應正確的 HTML ID)
+
+    // 1. 定義所有產品資料
 const productLibrary = {
     'chairs': { title: '桌椅租賃', tab: 'tab-1', items: [
         { name: '會議桌', img: 'https://via.placeholder.com/300', specs: '尺寸：180x60x75cm<br>材質：木質桌面/鋼製腳架' },
@@ -652,15 +652,15 @@ const productLibrary = {
 };
 
 // 2. 開啟彈窗的函式
-let currentTabId = '';
+let currentTabId = ''; // 用來儲存當前要跳轉的相簿 ID
+
+// 確保 HTML 呼叫時是用這個函數
 function openProductModal(catKey) {
     const data = productLibrary[catKey];
-    if(!data) return;
+    const listEl = document.getElementById('prod-list'); // 對應上面 HTML 的 ID
     
-    currentTabId = data.tab;
     document.getElementById('prod-modal-title').innerText = data.title;
-    
-    const listEl = document.getElementById('prod-list');
+    currentTabId = data.tab; 
     listEl.innerHTML = '';
 
     data.items.forEach((item, index) => {
@@ -678,41 +678,21 @@ function openProductModal(catKey) {
         if(index === 0) btn.click();
     });
 
-    const m = new bootstrap.Modal(document.getElementById('productModal'));
-    m.show();
+    new bootstrap.Modal(document.getElementById('productModal')).show();
 }
 
+// 3. 點擊「查看相簿」的特殊處理
 function closeProductAndOpenAlbum() {
-    // 1. 取得當前的產品 Modal 實例並關閉它
-    const pModalEl = document.getElementById('productModal');
-    const pModal = bootstrap.Modal.getInstance(pModalEl);
+    const modalEl = document.getElementById('productModal');
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    modal.hide(); // 關閉產品視窗
     
-    if (pModal) {
-        pModal.hide();
-        
-        // 2. 監聽「當產品視窗完全消失後」
-        pModalEl.addEventListener('hidden.bs.modal', function onHidden() {
-            pModalEl.removeEventListener('hidden.bs.modal', onHidden); // 移除監聽避免重複
-            
-            // 3. 呼叫相簿 Modal
-            const aModalEl = document.getElementById('albumModal');
-            if (aModalEl) {
-                const aModal = new bootstrap.Modal(aModalEl);
-                
-                // 4. 等相簿視窗出現後，切換到對應的 Tab (tab-1, tab-2 等)
-                aModalEl.addEventListener('shown.bs.modal', function onShown() {
-                    aModalEl.removeEventListener('shown.bs.modal', onShown);
-                    const tabBtn = document.querySelector(`[data-bs-target="#${currentTabId}"]`);
-                    if (tabBtn) {
-                        bootstrap.Tab.getOrCreateInstance(tabBtn).show();
-                    }
-                }, { once: true });
-                
-                aModal.show();
-            }
-        }, { once: true });
-    }
+    // 呼叫原本相簿的邏輯
+    setTimeout(() => {
+        openAlbumTab(currentTabId);
+    }, 300);
 }
+
 let photos_Tables = [
     "mk9LxTzv", "kGFc1xVC", "MK551m2x", "NMvm3Kvg", "T29PC76C", "Y23YP2XZ", "153w1x21", "GhJmRp8C"
 ];
@@ -1010,23 +990,13 @@ let currentProject = null, currentImgIdx = 0;
 // --- 卡片相簿連動系統 ---
 // 點擊卡片時，關閉當前 Modal 並開啟對應的相簿分頁
 function openAlbumTab(tabId) {
-    const albumModalEl = document.getElementById('albumModal');
-    if (!albumModalEl) {
-        alert("找不到相簿視窗，請確認 ID 是否為 albumModal");
-        return;
-    }
+    // 1. 關閉所有開啟中的 Modal (例如規格說明彈窗)
+    const openModals = document.querySelectorAll('.modal.show');
+    openModals.forEach(modalEl => {
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+    });
 
-    const albumModal = new bootstrap.Modal(albumModalEl);
-    albumModal.show();
-    
-    setTimeout(() => {
-        const tabTriggerEl = document.querySelector(`[data-bs-target="#${tabId}"]`) || document.getElementById(tabId);
-        if (tabTriggerEl) {
-            const tab = new bootstrap.Tab(tabTriggerEl);
-            tab.show();
-        }
-    }, 300);
-}
     // 2. 等待 Modal 關閉動畫後，開啟相簿 Modal
     setTimeout(() => {
         const albumModalEl = document.getElementById('albumModal');
