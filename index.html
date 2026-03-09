@@ -683,34 +683,35 @@ function openProductModal(catKey) {
 }
 
 function closeProductAndOpenAlbum() {
+    // 1. 取得當前的產品 Modal 實例並關閉它
     const pModalEl = document.getElementById('productModal');
     const pModal = bootstrap.Modal.getInstance(pModalEl);
-
-    // 關鍵：註冊一次性監聽，等「產品視窗完全消失」後再動作
-    pModalEl.addEventListener('hidden.bs.modal', function onHidden() {
-        pModalEl.removeEventListener('hidden.bs.modal', onHidden);
+    
+    if (pModal) {
+        pModal.hide();
         
-        // 開啟相簿 Modal
-        const aModalEl = document.getElementById('albumModal');
-        if (!aModalEl) return;
-        
-        const aModal = new bootstrap.Modal(aModalEl);
-        
-        // 關鍵：等「相簿視窗完全出現」後再切換 Tab
-        aModalEl.addEventListener('shown.bs.modal', function onShown() {
-            aModalEl.removeEventListener('shown.bs.modal', onShown);
+        // 2. 監聽「當產品視窗完全消失後」
+        pModalEl.addEventListener('hidden.bs.modal', function onHidden() {
+            pModalEl.removeEventListener('hidden.bs.modal', onHidden); // 移除監聽避免重複
             
-            // 執行切換 Tab
-            const tabBtn = document.querySelector(`[data-bs-target="#${currentTabId}"]`);
-            if (tabBtn) {
-                bootstrap.Tab.getOrCreateInstance(tabBtn).show();
+            // 3. 呼叫相簿 Modal
+            const aModalEl = document.getElementById('albumModal');
+            if (aModalEl) {
+                const aModal = new bootstrap.Modal(aModalEl);
+                
+                // 4. 等相簿視窗出現後，切換到對應的 Tab (tab-1, tab-2 等)
+                aModalEl.addEventListener('shown.bs.modal', function onShown() {
+                    aModalEl.removeEventListener('shown.bs.modal', onShown);
+                    const tabBtn = document.querySelector(`[data-bs-target="#${currentTabId}"]`);
+                    if (tabBtn) {
+                        bootstrap.Tab.getOrCreateInstance(tabBtn).show();
+                    }
+                }, { once: true });
+                
+                aModal.show();
             }
-        });
-        
-        aModal.show();
-    }, { once: true });
-
-    if (pModal) pModal.hide();
+        }, { once: true });
+    }
 }
 let photos_Tables = [
     "mk9LxTzv", "kGFc1xVC", "MK551m2x", "NMvm3Kvg", "T29PC76C", "Y23YP2XZ", "153w1x21", "GhJmRp8C"
