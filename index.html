@@ -637,13 +637,7 @@
             </div>
         </div>
     </div>
-</div> ```
-
-### 為什麼這樣改會解決你的問題？
-1.  **結構乾淨**：這兩段程式碼變成了「鄰居」，瀏覽器在讀取時就不會混亂，原本那個「卡片掉到下面」的問題，通常就是因為括號沒關好，導致外層盒子無法正確定義範圍。
-2.  **ID 獨立**：`albumModal` 和 `productModal` 各自有自己的 `div` 結尾，JavaScript 在尋找 ID 時就不會報錯。
-
-你試試看換成這個結構，應該馬上就會恢復正常了。有改好嗎？還是畫面上有其他異狀？
+</div> 
     
 <div id="imgLightbox" class="lightbox-overlay" onclick="closeLightbox()" style="display:none;"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
