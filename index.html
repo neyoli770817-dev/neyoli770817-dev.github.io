@@ -680,62 +680,57 @@ const productLibrary = {
 };
 
 // 2. 開啟彈窗的函式
-let currentTabId = ''; // 用來儲存當前要跳轉的相簿 ID
-
+    let currentTabId = '';
+    let currentProject = null;
+    let currentImgIdx = 0;
 // 確保 HTML 呼叫時是用這個函數
 function openProductModal(catKey) {
-    console.log("正在嘗試開啟產品，catKey 是:", catKey);
-    
-    // 偵探檢查：印出我們抓到的元素，如果是 null，它就會誠實地顯示
-    const modalTitle = document.getElementById('prod-modal-title');
-    const listEl = document.getElementById('prod-list');
-    
-    console.log("偵測到的 modalTitle:", modalTitle);
-    console.log("偵測到的 prod-list:", listEl);
+        const data = productLibrary[catKey];
+        if (!data) return;
 
-    // 檢查是否有找到
-    if (!modalTitle || !listEl) {
-        console.error("【警報】找不到 ID！請看上面的 log 哪一個是 null");
-        return; 
+        const modalTitle = document.getElementById('prod-modal-title');
+        const listEl = document.getElementById('prod-list');
+        const prodImg = document.getElementById('prod-img');
+        const prodName = document.getElementById('prod-name');
+        const prodSpecs = document.getElementById('prod-specs');
+
+        modalTitle.innerText = data.title;
+        currentTabId = data.tab;
+        listEl.innerHTML = '';
+
+        data.items.forEach((item, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'list-group-item list-group-item-action';
+            btn.innerText = item.name;
+            btn.onclick = () => {
+                prodImg.src = item.img;
+                prodName.innerText = item.name;
+                prodSpecs.innerHTML = item.specs;
+                document.querySelectorAll('#prod-list .list-group-item').forEach(el => el.classList.remove('active'));
+                btn.classList.add('active');
+            };
+            listEl.appendChild(btn);
+            if(index === 0) btn.click();
+        });
+
+        new bootstrap.Modal(document.getElementById('productModal')).show();
     }
-    const data = productLibrary[catKey];
-    const listEl = document.getElementById('prod-list'); // 對應上面 HTML 的 ID
-    
-    document.getElementById('prod-modal-title').innerText = data.title;
-    currentTabId = data.tab; 
-    listEl.innerHTML = '';
 
-    data.items.forEach((item, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'list-group-item list-group-item-action';
-        btn.innerText = item.name;
-        btn.onclick = () => {
-            document.getElementById('prod-img').src = item.img;
-            document.getElementById('prod-name').innerText = item.name;
-            document.getElementById('prod-specs').innerHTML = item.specs;
-            document.querySelectorAll('#prod-list .list-group-item').forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
-        };
-        listEl.appendChild(btn);
-        if(index === 0) btn.click();
-    });
-
-    new bootstrap.Modal(document.getElementById('productModal')).show();
-}
-
-// 3. 點擊「查看相簿」的特殊處理
 function closeProductAndOpenAlbum() {
-    const modalEl = document.getElementById('productModal');
-    const modal = bootstrap.Modal.getInstance(modalEl);
-    
-    // 隱藏產品視窗
-    if (modal) modal.hide();
-    
-    // 設定一個短延遲，確保產品 Modal 完全關閉後，再呼叫開啟相簿
-    setTimeout(() => {
-        openAlbumTab(currentTabId);
-    }, 400); // 延長到 400ms 以避開動畫衝突
-}
+        const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
+        if (modal) modal.hide();
+        setTimeout(() => {
+            const albumModalEl = document.getElementById('albumModal');
+            const albumModal = new bootstrap.Modal(albumModalEl);
+            albumModal.show();
+            
+            // 觸發 Tab 切換
+            const tabTrigger = document.getElementById(currentTabId);
+            if (tabTrigger) {
+                new bootstrap.Tab(tabTrigger).show();
+            }
+        }, 400);
+    }
 
 let photos_Tables = [
     "mk9LxTzv", "kGFc1xVC", "MK551m2x", "NMvm3Kvg", "T29PC76C", "Y23YP2XZ", "153w1x21", "GhJmRp8C"
