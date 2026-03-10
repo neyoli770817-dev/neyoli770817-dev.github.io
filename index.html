@@ -716,15 +716,13 @@ function openProductModal(catKey) {
         new bootstrap.Modal(document.getElementById('productModal')).show();
     }
 
-function closeProductAndOpenAlbum() {
+    function closeProductAndOpenAlbum() {
         const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
         if (modal) modal.hide();
         setTimeout(() => {
             const albumModalEl = document.getElementById('albumModal');
             const albumModal = new bootstrap.Modal(albumModalEl);
             albumModal.show();
-            
-            // 觸發 Tab 切換
             const tabTrigger = document.getElementById(currentTabId);
             if (tabTrigger) {
                 new bootstrap.Tab(tabTrigger).show();
@@ -1065,53 +1063,53 @@ function loadGallery(containerId, list) {
 }
 
 function openProjectGallery(projectId) {
-    currentProject = photoLibrary[projectId];
-    if (!currentProject) return;
-    currentImgIdx = 0;
-    updateLightbox();
-}
+        currentProject = photoLibrary[projectId];
+        if (!currentProject) return;
+        currentImgIdx = 0;
+        updateLightbox();
+    }
 
-function updateLightbox() {
-    const lb = document.getElementById('imgLightbox');
-    if(!lb) return;
-    const info = currentProject;
-    const formattedDesc = info.desc.replace(/\n/g, '<br>');
-    lb.innerHTML = `
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeLightbox()">✕</button>
-            <div class="lightbox-image-side">
-                <img src="${info.images[currentImgIdx]}" id="target-img">
-                ${info.images.length > 1 ? `
-                    <div class="nav-controls">
-                        <button class="nav-btn prev" onclick="changeImage(-1)">❮</button>
-                        <button class="nav-btn next" onclick="changeImage(1)">❯</button>
-                    </div>
-                    <div class="img-counter"><span class="current">${currentImgIdx + 1}</span> / <span class="total">${info.images.length}</span></div>
-                ` : ''}
-            </div>
-            <div class="lightbox-info-side">
-                <h2 style="color: #BA2D30;">${info.title}</h2>
-                <p><i class="bi bi-geo-alt-fill me-1"></i>${info.loc}</p>
-                <hr>
-                <div class="info-body"><p>${formattedDesc}</p></div>
-                <button class="btn btn-outline-light w-100 mt-4" onclick="closeLightbox()">關閉</button>
-            </div>
-        </div>`;
-    lb.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
+    function updateLightbox() {
+        const lb = document.getElementById('imgLightbox');
+        if(!lb || !currentProject) return; // 加入防呆
+        const info = currentProject;
+        const formattedDesc = info.desc.replace(/\n/g, '<br>');
+        lb.innerHTML = `
+            <div class="lightbox-content" onclick="event.stopPropagation()">
+                <button class="close-btn" onclick="closeLightbox()">✕</button>
+                <div class="lightbox-image-side">
+                    <img src="${info.images[currentImgIdx]}" id="target-img">
+                    ${info.images.length > 1 ? `
+                        <div class="nav-controls">
+                            <button class="nav-btn prev" onclick="changeImage(-1)">❮</button>
+                            <button class="nav-btn next" onclick="changeImage(1)">❯</button>
+                        </div>
+                        <div class="img-counter"><span class="current">${currentImgIdx + 1}</span> / <span class="total">${info.images.length}</span></div>
+                    ` : ''}
+                </div>
+                <div class="lightbox-info-side">
+                    <h2 style="color: #BA2D30;">${info.title}</h2>
+                    <p><i class="bi bi-geo-alt-fill me-1"></i>${info.loc}</p>
+                    <hr>
+                    <div class="info-body"><p>${formattedDesc}</p></div>
+                    <button class="btn btn-outline-light w-100 mt-4" onclick="closeLightbox()">關閉</button>
+                </div>
+            </div>`;
+        lb.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 
-function changeImage(step) {
-    currentImgIdx = (currentImgIdx + step + currentProject.images.length) % currentProject.images.length;
-    document.getElementById('target-img').src = currentProject.images[currentImgIdx];
-    const counter = document.querySelector('.img-counter .current');
-    if(counter) counter.innerText = currentImgIdx + 1;
-}
+    function changeImage(step) {
+        currentImgIdx = (currentImgIdx + step + currentProject.images.length) % currentProject.images.length;
+        document.getElementById('target-img').src = currentProject.images[currentImgIdx];
+        const counter = document.querySelector('.img-counter .current');
+        if(counter) counter.innerText = currentImgIdx + 1;
+    }
 
-function closeLightbox() { 
-    document.getElementById('imgLightbox').style.display = 'none'; 
-    document.body.style.overflow = 'auto'; 
-}
+    function closeLightbox() {  
+        document.getElementById('imgLightbox').style.display = 'none';  
+        document.body.style.overflow = 'auto';  
+    }
 
 // --- 頁面初始化 ---
 window.addEventListener('load', function() {
