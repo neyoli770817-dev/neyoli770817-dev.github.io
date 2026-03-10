@@ -593,32 +593,20 @@ body, html {
     </div>
 </section>
 
-    <div class="modal fade" id="albumModal" tabindex="-1" aria-hidden="true">
+   <div class="modal fade" id="albumModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">產品相簿</h5>
+                <h5 class="modal-title" id="albumTitle">產品相簿</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
-                <ul class="nav nav-tabs" id="albumTabs" role="tablist">
-                    <li class="nav-item"><button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#gallery-1" type="button" role="tab" aria-selected="true">桌椅</button></li>
-                    <li class="nav-item"><button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#gallery-2" type="button" role="tab" aria-selected="false">Truss</button></li>
-                    <li class="nav-item"><button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#gallery-3" type="button" role="tab" aria-selected="false">帳篷</button></li>
-                    <li class="nav-item"><button class="nav-link" id="tab-4" data-bs-toggle="tab" data-bs-target="#gallery-4" type="button" role="tab" aria-selected="false">舞台</button></li>
-                    <li class="nav-item"><button class="nav-link" id="tab-5" data-bs-toggle="tab" data-bs-target="#gallery-5" type="button" role="tab" aria-selected="false">其他</button></li>
-                </ul>
-
-                <div class="tab-content mt-3" id="albumTabContent">
-                    <div class="tab-pane fade show active" id="gallery-1" role="tabpanel"><div class="row"></div></div>
-                    <div class="tab-pane fade" id="gallery-2" role="tabpanel"><div class="row"></div></div>
-                    <div class="tab-pane fade" id="gallery-3" role="tabpanel"><div class="row"></div></div>
-                    <div class="tab-pane fade" id="gallery-4" role="tabpanel"><div class="row"></div></div>
-                    <div class="tab-pane fade" id="gallery-5" role="tabpanel"><div class="row"></div></div>
-                </div>
+            <div class="modal-body" id="albumContent">
+                <div class="row" id="photoGrid"></div>
             </div>
         </div>
     </div>
+</div>
+            
 </div> <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
