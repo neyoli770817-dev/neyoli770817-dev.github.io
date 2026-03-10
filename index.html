@@ -258,29 +258,7 @@ body, html {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
         /* 強制將原本的垂直清單變成網格排列 */
-.list-group {
-    display: grid !important;
-    /* 這裡設定一列放幾張：200px 是最小寬度，自動依照螢幕寬度並排 */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
-    gap: 15px !important;
-    border: none !important;
-}
 
-/* 修正每個項目的外觀，讓它不再是原本的清單樣式 */
-.list-group-item {
-    display: block !important;
-    border: 1px solid #ddd !important;
-    border-radius: 8px !important;
-    padding: 10px !important;
-    margin-bottom: 0 !important; /* 移除原本的垂直間距 */
-    transition: all 0.3s ease !important;
-}
-
-/* 加上你想要的酒紅光暈效果 */
-.list-group-item:hover {
-    box-shadow: 0 5px 15px rgba(114, 47, 55, 0.3) !important;
-    border-color: var(--brand-red) !important;
-}
 
 .gallery-item img {
     width: 100%;    /* 寬度撐滿 */
@@ -1074,10 +1052,15 @@ function openAlbumTab(tabId) {
 // (注意：就是這麼短，不要再留舊的 setTimeout 在下面了)
 // --- 相簿與燈箱功能 ---
     
+
 function loadGallery(containerId, list) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.innerHTML = list.map(id => {
+    // 找到該 tab 下面的 .row
+    const rowContainer = document.querySelector(`#${containerId} .row`);
+    
+    if (!rowContainer) return;
+
+    // 只更新 row 裡面的 HTML，保留 row 的排版能力
+    rowContainer.innerHTML = list.map(id => {
         const item = photoLibrary[id];
         return `
             <div class="col-md-4 col-lg-3 mb-4" onclick="openProjectGallery('${id}')" style="cursor:pointer;">
