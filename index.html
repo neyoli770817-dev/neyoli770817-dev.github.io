@@ -777,99 +777,361 @@ function openProductModal(catKey) {
         }, 400);
     }
 
-// --- 分類定義部分：修正 ID 對應，確保照片不再顯示 undefined ---
-// --- 分類定義部分：修正 ID 對應，確保照片不再顯示 undefined ---
-// 1. 分類索引陣列
-const photos_Tables = ["mk9LxTzv", "kGFc1xVC", "MK551m2x", "NMvm3Kvg", "T29PC76C", "Y23YP2XZ", "153w1x21", "GhJmRp8C", "853xj94F", "fLFnWQCg"];
-const photos_Truss = ["3rs5P7dS", "XYgRGCxL", "x1jsZFy6", "5yMgSP24", "fTgGBXgN", "JzdQ27hr", "Nfs7G29h", "0jyxYx50", "fLZJ1qm9"];
-const photos_Tent = ["P5dcjqhX", "RhzdLPZN", "VL8ZqNSy", "Kv2pPY16", "L6WTrsVV", "bvt1VQM6", "MKpVJkNW", "qM1cNBy1", "SN18yTbL", "76r0F5rH", "PJtZq0qV", "YqCYBcZG", "8ctvfwJ8", "NMmRQjGX", "0jJD2GYQ", "dtjpqG5F", "3J58dMms", "nr6Shx0S", "fbfb7Td9", "g0f2PShz"];
-const photos_Stage = ["MZbm8mGD", "3J58dMms", "fLvbNBgy", "fLZJ1qm9"];
-const photos_Decor = ["vBx2zgLF", "KzhB61hF"];
+let photos_Tables = [
+    "mk9LxTzv", "kGFc1xVC", "MK551m2x", "NMvm3Kvg", "T29PC76C", "Y23YP2XZ", "153w1x21", "GhJmRp8C", 
+    "853xj94F", "fLFnWQCg" // 補入：內湖玉東桌椅、松山華固桌椅
+];
 
-// 2. 詳細資料資料庫 (文案內容絕對完整保留)
+let photos_Truss = [
+    "3rs5P7dS", "XYgRGCxL", "x1jsZFy6", "5yMgSP24", "fTgGBXgN", "JzdQ27hr", "Nfs7G29h", "0jyxYx50", 
+    "fLZJ1qm9" // 補入：黎明科大 Truss
+];
+
+let photos_Tent = [
+    "P5dcjqhX", "RhzdLPZN", "VL8ZqNSy", "Kv2pPY16", "L6WTrsVV", "bvt1VQM6", "MKpVJkNW", "qM1cNBy1", "SN18yTbL", "76r0F5rH", "PJtZq0qV", "YqCYBcZG", "8ctvfwJ8", "NMmRQjGX", "0jJD2GYQ", "dtjpqG5F", "3J58dMms",
+    "nr6Shx0S", "fbfb7Td9", "g0f2PShz" // 補入：湖口張公廳、新屋九斗、青埔國王大道
+];
+
+let photos_Stage = [
+    "MZbm8mGD", "3J58dMms", "fLvbNBgy", 
+    "fLZJ1qm9" // 補入：黎明科大舞台
+];
+
+let photos_Decor = [
+    "vBx2zgLF", "KzhB61hF"
+];
+
 const photoLibrary = {
-    "3rs5P7dS": { title: "57週年校慶 Truss結構", loc: "新北市永和區", images: ["https://i.postimg.cc/3rs5P7dS/image.jpg"], desc: "2025/11/06 這次非常榮幸來到永和國中幫忙搭Truss，永和國中不愧是明星學校，學生們都非常有活力，校內設備和科系也非常多元，讓小編的青春回憶也漸漸浮現，想當年小編的國中是5566.......西街~~~~~噓！！" },
-    "P5dcjqhX": { title: "捷運站市集3米帳篷佈置", loc: "台北市北投區", images: ["https://i.postimg.cc/P5dcjqhX/image.jpg","https://i.postimg.cc/yYm5tRqx/image.jpg","https://i.postimg.cc/3x36Tw7r/image.jpg","https://i.postimg.cc/x1972dYT/image.jpg","https://i.postimg.cc/MpZsLrbm/image.jpg","https://i.postimg.cc/SxQZPt7d/image.jpg","https://i.postimg.cc/XYN2PDcH/image.jpg"], desc: "今天天氣超~~~~好der啦~~，我們來到新北投捷運站搭我們最引以為傲的3米帳，看看那白如皎月的頂棚，品質維護和安全性就是我們最大的堅持！" },
-    "RhzdLPZN": { title: "中油場地規劃工程", loc: "新竹市東區", images: ["https://i.postimg.cc/RhzdLPZN/image.jpg","https://i.postimg.cc/XJ5xFM4r/image.jpg","https://i.postimg.cc/TwbQm8f5/image.jpg","https://i.postimg.cc/kGdsvjgg/image.jpg"], desc: "連中油大大都和我們合作了~~~~太港動惹~~~這場好多東西，有Truss、6米帳、3米帳....還有折疊椅那些~~~大家快放大看看我們的帳篷，484真的非~~~常乾淨呢?" },
-    "XYgRGCxL": { title: "桃園機場論壇 Truss結構", loc: "台北市中山區", images: ["https://i.postimg.cc/XYgRGCxL/image.jpg","https://i.postimg.cc/MpYCMQtP/image.jpg"], desc: "2025桃園機場論壇，那個美美的光線和後面宛如牆面般堅固的Truss，就是我們的傑作喔~~~" },
-    "vBx2zgLF": { title: "Partition結構", loc: "台北市信義區", images: ["https://i.postimg.cc/vBx2zgLF/image.jpg","https://i.postimg.cc/XJB18GKH/image.jpg"], desc: "什麼！？八毅也有在做Partition！？ 您沒看錯，我們什麼都有涉略喔，雖然目前料還不多，但在技術上我們是絕對沒問題的，甚至曲面造型的我們也能完工喔~~~~~" },
-    "VL8ZqNSy": { title: "美堤花園圓拱帳工程", loc: "台北市中山區", images: ["https://i.postimg.cc/VL8ZqNSy/image.jpg"], desc: "來大直搭圓拱帳嚕~~~~好久沒來到大直了，想當年小編還在這附近當過HTC的店員呢~~一眨眼又老10歲了(淚奔)" },
-    "Kv2pPY16": { title: "夜間圓拱帳工程", loc: "桃園市中壢區", images: ["https://i.postimg.cc/Kv2pPY16/image.jpg","https://i.postimg.cc/J4LYNhsT/image.jpg","https://i.postimg.cc/L6pQtsJr/image.jpg"], desc: "兄Day們！！看看那霓虹燈~~~這樣的工作環境，動力都來了~~~真的是太美了！！我是說我們的圓拱帳" },
-    "x1jsZFy6": { title: "blooming cafe Truss結構", loc: "台北市中山區", images: ["https://i.postimg.cc/x1jsZFy6/image.jpg"], desc: "這邊進過蠻多次的，上面的帳篷我們也能搭設喔~~看看這Truss和輸出，和背景是不是完美融合呢~" },
-    "5yMgSP24": { title: "AClub15學術研討會Truss結構", loc: "台北市大安區", images: ["https://i.postimg.cc/5yMgSP24/image.jpg"], desc: "Aclab15大家知道是什麼活動嗎? 是「第15屆亞洲乳酸菌研討會」喔！這是一場國際性的學術盛事，剛好這次輪到我們台灣主辦，現場有來自各國的學者，八毅公司真的很榮幸能成為此次活動廠商的一部份" },
-    "mk9LxTzv": { title: "桌椅租賃", loc: "台北市中山區", images: ["https://i.postimg.cc/mk9LxTzv/image.jpg"], desc: "我們來到台北戲棚送桌椅瞜~~~~~第一次看到戲棚內部，雖然只是照片，但還是掩飾不住小編的興奮感~~~~ 真是太幸福惹~~~~" },
-    "kGFc1xVC": { title: "桌椅&舞台佈置", loc: "新北市林口區", images: ["https://i.postimg.cc/kGFc1xVC/image.jpg","https://i.postimg.cc/J0cq6byM/image.jpg"], desc: "這邊是林口竹林山觀音寺，進到莊嚴的聖地，瞬間感受到人類真的是很神奇的生物，雖然渺小，卻能創造宏觀；就像前方的Truss、舞台，整齊劃一的黑金剛折合椅，也是我們八毅盡棉薄之力搭設而成" },
-    "L6WTrsVV": { title: "圓拱帳進場", loc: "新北市瑞芳區", images: ["https://i.postimg.cc/L6WTrsVV/image.jpg","https://i.postimg.cc/ZK4j9DgC/image.jpg"], desc: "這是瑞芳地政事務所暨衛生所聯合辦公廳舍興建工程動土儀式喔，這圓拱帳真的好大座，真的很佩服外場的兄Day們" },
-    "MK551m2x": { title: "沙發進場", loc: "新北市土城區", images: ["https://i.postimg.cc/MK551m2x/image.jpg"], desc: "今天來到一個傷心地~~~我們新理想行銷團隊負責的土城建案~~~看著這些房子，沒一間買得起，只能對著鏡子說對不起...還好還吃得起美食，晚點回家坐在一樣的單人沙發，邊吃邊追劇~~" },
-    "bvt1VQM6": { title: "桌椅租賃", loc: "新北市新莊區", images: ["https://i.postimg.cc/nzfByXft/image.jpg","https://i.postimg.cc/cHGwpvy2/image.jpg","https://i.postimg.cc/LXFLcJKW/image.jpg","https://i.postimg.cc/HLybvQKF/image.jpg","https://i.postimg.cc/mrH7pQq6/image.jpg","https://i.postimg.cc/bvt1VQM6/image.jpg"], desc: "這邊是三重水樣啵啵廣場，聽名字是不是很可愛呢 ? 感覺好像隨時會出現以前寶可夢的波比一樣 大家有看到我們的圍布嗎 ? 和我們的帳篷一樣乾乾淨淨，還有Truss，這麼大組一樣難不倒我們" },
-    "fTgGBXgN": { title: "Truss結構", loc: "台北市中山區", images: ["https://i.postimg.cc/fTgGBXgN/image.jpg","https://i.postimg.cc/L60cNf02/image.jpg"], desc: "大家快看快看，這是我們去萬豪酒店搭的，小編看不出這是什麼造型，所以拉多一點人來看，看有沒有人看出端倪。我們外場人員無所不能~~~" },
-    "MKpVJkNW": { title: "圓拱帳工程", loc: "新竹縣湖口鄉", images: ["https://i.postimg.cc/MKpVJkNW/image.jpg","https://i.postimg.cc/153w1x28/image.jpg","https://i.postimg.cc/BQnHfWkv/image.jpg","https://i.postimg.cc/VLknPyp8/image.jpg"], desc: "跑來新竹湖口市場了，可惜小編不能跟，沒法去吃好料的" },
-    "JzdQ27hr": { title: "Truss結構", loc: "宜蘭縣礁溪鄉", images: ["https://i.postimg.cc/JzdQ27hr/image.jpg"], desc: "同一天有湖口也有礁溪，厲害吧~~~ 這組Truss搭的真漂亮，根背景完美融合，毫無違和感，而且它地面高低起伏很大，能夠搭這麼平著實不簡單啊~~~~" },
-    "T29PC76C": { title: "黑金剛摺疊椅租賃", loc: "台北市信義區", images: ["https://i.postimg.cc/T29PC76C/image.jpg","https://i.postimg.cc/GpWxbMGc/image.jpg"], desc: "松菸也有我們的局耶~~雖然只是進少少的桌椅，但相信以我們的堅持和品質，再過不久，肯定會出到好幾台車的量~~~~(期待)" },
-    "MZbm8mGD": { title: "竹林寺圓拱帳&Truss帳&舞台&3米帳佈置", loc: "新北市林口區", images: ["https://i.postimg.cc/MZbm8mGD/image.jpg","https://i.postimg.cc/fWjfhfbx/image.jpg","https://i.postimg.cc/L5Rk1nxZ/image.jpg"], desc: "再次來到竹林山觀音寺，這次非常大場，感謝客戶對八毅團隊的信任，這次我們不僅僅有帳篷，還有Truss帳、舞台..等，甚至也有帝王帳，完工後大家都累癱了" },
-    "Nfs7G29h": { title: "Truss結構", loc: "新北市淡水區", images: ["https://i.postimg.cc/Nfs7G29h/image.jpg","https://i.postimg.cc/28kFjLbY/image.jpg"], desc: "竹圍國小的小口Truss，設計得非常可愛，很喜歡竹圍國小的校內風格，如果我可以再回到國小該有多好~~~" },
-    "qM1cNBy1": { title: "3米帳篷&6米帳篷", loc: "台北市文山區", images: ["https://i.postimg.cc/qM1cNBy1/image.jpg","https://i.postimg.cc/QxfgFN1b/image.jpg"], desc: "挖~~~~是我小時候最愛去的木柵動物園ㄝ，真是令人懷念，可惜這次不是來看動物的，是要來搭帳篷，我們這場有6米宮廷帳，也有3米帳，我們的帳篷真的無論何時看都是這麼乾淨，做場速度又快又安全！也難怪客戶一致給我們好評~~" },
-    "SN18yTbL": { title: "圓拱帳工程&3米帳篷&6米帳篷&桌椅紅龍", loc: "新北市中和區", images: ["https://i.postimg.cc/kgVSDQ7f/image.jpg","https://i.postimg.cc/153w1x20/image.jpg","https://i.postimg.cc/SN18yTbL/image.jpg"], desc: "晚上來進中和國小，感覺有點奇妙，以前小時候特別喜歡放學後又溜回來學校聚會，長大後一樣是回來學校，只是變成工作了。人生其實真要說起來，也是蠻單純的呢~" },
-    "KzhB61hF": { title: "高吧桌", loc: "台北市南港區", images: ["https://i.postimg.cc/V6PnxJPm/image.jpg","https://i.postimg.cc/KzhB61hF/image.jpg"], desc: "大家有看過這樣的高吧桌嗎 ? 桌巾的旋轉是不是很美呢 ? 我們的外場人員不僅僅身負怪力，細節部分也絕不馬虎，很符合飯店的風格吧！" },
-    "NMvm3Kvg": { title: "桌椅租賃", loc: "新北市新莊區", images: ["https://i.postimg.cc/NMvm3Kvg/image.jpg"], desc: "又來到水樣啵啵送桌椅了，可惜這次還是沒有看到胖丁" },
-    "8ctvfwJ8": { title: "圓拱帳工程", loc: "新北市新莊區", images: ["https://i.postimg.cc/2jwhtjcj/image.jpg","https://i.postimg.cc/8ctvfwJ8/image.jpg"], desc: "嗚ㄚㄚㄚㄚㄚ~~~~~終於來到大都會公園了，好久沒呼吸新鮮空氣，這場除了圓拱帳，還有桌椅那些，說真的看外勤人員作業感覺非常不好搭，真的是辛苦了，大家都非常了不起！！" },
-    "76r0F5rH": { title: "屋型帳&桌椅", loc: "台北市萬華區", images: ["https://i.postimg.cc/76r0F5rH/image.jpg","https://i.postimg.cc/C1pk3RpK/image.jpg"], desc: "我們這次在艋舺金義宮喔！地址是:台北市萬華區梧州街2巷6號喔，沒辦法定位，大家如果要來拜拜不要跑錯地方瞜~~ 這邊搭了2頂屋型帳還有一些點心椅，希望活動一切平安順利" },
-    "PJtZq0qV": { title: "圓拱帳工程", loc: "台北市中正區", images: ["https://i.postimg.cc/PJtZq0qV/image.jpg","https://i.postimg.cc/Wz2r4x49/image.jpg"], desc: "在古色古香的華山1914搭圓拱帳，這種機會真的是不常有，雖然看起來和背景有點違和，但也凸顯了時間雖然慢慢帶走了人類和建築的外貌，卻帶不走源自生命的活力，只要活著，就有無限可能" },
-    "Y23YP2XZ": { title: "桌椅租賃", loc: "新北市新莊區", images: ["https://i.postimg.cc/h4rTY4yF/image.jpg","https://i.postimg.cc/Y23YP2XZ/image.jpg"], desc: "再次回到大都會公園，感謝客戶的信任，讓我們的堅持能有成果，從白天忙到半夜，就是為了給顧客最好、最安全的活動空間，最乾淨舒適的外觀，這就是八毅" },
-    "153w1x21": { title: "桌椅租賃", loc: "新北市樹林區", images: ["https://i.postimg.cc/153w1x21/image.jpg"], desc: "來濟安宮送桌椅摟~~我們很常來這邊，小編家也住附近而已，只是來送八毅的東西還是第一次，我們的桌椅數量蠻多的，不僅卡榫那些都完好無損，外觀也都乾乾淨淨的，歡迎有需要的冰u們跟八毅預約喔~~~~~" },
-    "YqCYBcZG": { title: "圓拱帳工程", loc: "新竹縣湖口鄉", images: ["https://i.postimg.cc/YqCYBcZG/image.jpg","https://i.postimg.cc/HskX1GRb/image.jpg"], desc: "最近真的好常跑湖口，這部分當初在規劃就有考量進去瞜~~~所以我們連頂棚都選好尺寸了，畢竟湖口一趟真的不近，我們一定要細心再細心，才能變得更專業、更有效率~~~" },
-    "GhJmRp8C": { title: "桌椅租賃", loc: "台北市南港區", images: ["https://i.postimg.cc/GhJmRp8C/image.jpg"], desc: "今天來送南港永慶房屋的桌椅，感謝永慶房屋一直支持我們，三不五時就發工作機會給我們" },
-    "NMmRQjGX": { title: "3米帳篷", loc: "新北市中和區", images: ["https://i.postimg.cc/NMmRQjGX/image.jpg","https://i.postimg.cc/RhmKhxqn/image.jpg","https://i.postimg.cc/3NhmNQWv/image.jpg","https://i.postimg.cc/GtRGtn9k/image.jpg","https://i.postimg.cc/Y07Y0BjQ/image.jpg","https://i.postimg.cc/6QDdsvKB/image.jpg","https://i.postimg.cc/nL6v8DxV/image.jpg","https://i.postimg.cc/760SqZP5/image.jpg","https://i.postimg.cc/G2Gvbm3t/image.jpg","https://i.postimg.cc/FK2jtLvr/image.jpg"], desc: "晚上來進中和國小，感覺有點奇妙，以前小時候特別喜歡放學後又溜回來學校聚會，長大後一樣是回來學校，只是變成工作了。人生其實真要說起來，也是蠻單純的呢~" },
-    "0jJD2GYQ": { title: "圓拱帳工程", loc: "新竹縣湖口鄉", images: ["https://i.postimg.cc/0jJD2GYQ/image.jpg","https://i.postimg.cc/kGtKXNQD/image.jpg","https://i.postimg.cc/qRF2TD3h/image.jpg","https://i.postimg.cc/FR604CLY/image.jpg","https://i.postimg.cc/26tnD9Z3/image.jpg","https://i.postimg.cc/G2fvCgyB/image.jpg"], desc: "最近真的好常跑湖口，這邊真的很舒服，天氣又好，來這搭圓拱帳感覺真的很好。大家有注意到圓拱帳前面有支路燈嗎 ? 這部份當初在規劃就有考量進去瞜~~~所以我們連頂棚都選好尺寸了，畢竟湖口一趟真的不近，我們一定要細心再細心，才能變得更專業、更有效率~~~" },
-    "dtjpqG5F": { title: "圓拱帳工程", loc: "新竹縣湖口鄉", images: ["https://i.postimg.cc/dtjpqG5F/image.jpg","https://i.postimg.cc/GhxVcvXr/image.jpg","https://i.postimg.cc/7YndxSKq/image.jpg","https://i.postimg.cc/020F87VP/image.jpg"], desc: "湖口我們又又又又又來拉~~~~這是來搭張公廳的圓拱帳，小編的老家也在新竹呢，把拔是位非常純正的客家人喔，我們就住在新竹老街裡面，如果有同鄉的冰U歡迎找我們喔~~" },
-    "0jyxYx50": { title: "3米帳篷", loc: "台北市松山區", images: ["https://i.postimg.cc/0jyxYx50/image.jpg","https://i.postimg.cc/C5xYGYMN/image.jpg","https://i.postimg.cc/XqY3f3Nc/image.jpg","https://i.postimg.cc/0jyxYx5C/image.jpg"], desc: "來到小編馬麻的學校了~~~聽說這次是桃園育達高中運動會。八毅很榮幸能成為協作廠商，來這搭3米紅白，大家看看我們整齊的圍布，連高度都幾乎一致，是不是真的很漂亮呢~~~" },
-    "3J58dMms": { title: "圓拱帳 & 舞台工程", loc: "新竹縣橫山鄉", images: ["https://i.postimg.cc/3J58dMms/image.jpg","https://i.postimg.cc/mZFZLZz6/image.jpg","https://i.postimg.cc/tCQqY0FQ/image.jpg","https://i.postimg.cc/9F5mr3yH/image.jpg"], desc: "這邊是在新竹縣橫山鄉的大山背喔~~~小編對這邊雖然不是太熟，不過聽說附近有著名地標 '大崎棟古道'，聽說當地有很美的景觀 and 美食，大家有空可以安排一下來這邊走走散散心喔～～～ 對了！這場八毅是搭圓拱帳和舞台喔！在風這麼大的地方，帳棚穩到連些微擺動都沒有，更不用說這工整度幾乎算藝術品了～～ ～" },
-    "fLvbNBgy": { title: "舞台工程進場", loc: "台北市文山區 (新店交界)", images: ["https://i.postimg.cc/fLvbNBgy/image.jpg","https://i.postimg.cc/XJgvbQDp/image.jpg"], desc: "來到文山區考試院搭設舞台，這裡是許多國考生的戰場，我們八毅也要拿出職人精神，把舞台搭得穩穩當當，祝所有考生都能金榜題名！" },
-    "nr6Shx0S": { title: "圓拱帳搭建進場", loc: "新竹縣湖口鄉 (張公廳)", images: ["https://i.postimg.cc/nr6Shx0S/yong-chang-zhang-gong-ting-yuan-gong-zhang-jin-chang.jpg","https://i.postimg.cc/dtjpqG5F/image.jpg","https://i.postimg.cc/020F87VP/image.jpg","https://i.postimg.cc/Vk4TXx69/yong-chang-zhang-gong-ting-yuan-gong-zhang-jin-chang2.jpg","https://i.postimg.cc/9Q1Sy6Md/yong-chang-zhang-gong-ting-yuan-gong-zhang-jin-chang3.jpg","https://i.postimg.cc/0yZ37TQd/yong-chang-zhang-gong-ting-yuan-gong-zhang-jin-chang4.jpg"], desc: "在具有歷史意義的湖口張公廳，八毅完成了美觀且耐用的圓拱帳搭建。白色帳體與古色古香的場域相互對照，不只遮風擋雨，更讓整體活動質感大提升！" },
-    "fbfb7Td9": { title: "豫章堂圓拱帳搭建", loc: "桃園市新屋區 (九斗豫章堂)", images: ["https://i.postimg.cc/fbfb7Td9/yong-chang-jiu-dou-yu-zhang-tang-yuan-gong-zhang-jin-chang.jpg","https://i.postimg.cc/TPJPjYbn/yong-chang-jiu-dou-yu-zhang-tang-yuan-gong-zhang-jin-chang2.jpg"], desc: "來到桃園新屋的九斗豫章堂，面對這座百年宗祠的歷史底蘊，搭設過程中不禁讓人感到肅然起敬。我們用最整齊的圓拱帳，守護這份傳承的隆重感。" },
-    "853xj94F": { title: "永慶房屋活動桌椅進場", loc: "台北市內湖區 (玉東公園)", images: ["https://i.postimg.cc/853xj94F/yong-qing-fang-wu-yu-dong-gong-yuan-zhuo-yi-jin-chang.jpg"], desc: "「在每一場精彩活動的背後，總有我們默默配送的身影。🚚」\n\n這幾天剛在桃園忙完，轉個身我們又載著一車的桌椅設備，來到內湖玉東公園。這次是協助\"永慶房屋\"的租賃服務。🤝\n\n雖然我們只是負責把設備送到，沒有華麗的舞台搭建，但看到這幾車裝載滿裝的桌椅，心裡還是有一份踏實感。每一張桌子、每一把椅子，都是為了讓來到現場的人，能有個舒適的位置坐下來參與活動。\n\n在公園的樹蔭下，看著大家準備開始熱鬧，我們也完成任務準備趕往下一場。或許路過的毛小孩沒空理我們，但能成為每一場活動最基層的支柱，這就是八毅團隊平凡卻重要的日常。✨" },
-    "fLZJ1qm9": { title: "Truss結構 & 舞台搭建", loc: "新北市泰山區 (黎明技術學院)", images: ["https://i.postimg.cc/fLZJ1qm9/xiao-ge-li-ming-ke-da-wu-tai-Truss-jin-chang.jpg"], desc: "「今天不練舞，我們來黎明搭舞台！🏗️」\n\n去年底在中壢、育達高中到處跑，今天終於殺到黎明科大啦！🎓\n\n快看這地毯鋪得有多平整，走在上面都忍不住想來段Breaking。還有這次的 Truss 結構，正面加上精美的視覺輸出後，整個質感直接頂天，專業度滿分！不只穩如泰山，拍照更是自帶後台濾鏡！📸\n\n想讓你的校園活動一秒變「高大上」？找我們就對了！這舞台帥到連黎明校園裡的鴿子都會停下來多看兩眼，順便考慮要不要報名表演！🕊️✨" },
-    "fLFnWQCg": { title: "永慶房屋桌椅 & 桌巾進場", loc: "台北市松山區 (華固名鑄)", images: ["https://i.postimg.cc/fLFnWQCg/109909_0.jpg","https://i.postimg.cc/263NfSQt/109908_0.jpg","https://i.postimg.cc/263NfSQX/109907_0.jpg"], desc: "「在繁忙的敦化北路，我們也是一道風景。🚚」\n\n剛完成南港的任務，八毅團隊載著設備轉進了：華固名鑄。再次感謝\"永慶房屋\"的活動委託。🤝\n\n站在這座充滿設計感的建築前，雖然我們只是把這一車的桌椅設備送到位，沒有參與什麼隆重的典禮，但看著這些支撐活動的基礎設備一件件卸下，心裡還是有種「使命必達」的成就感。\n\n這裡的街道很精緻、節奏很快，而我們負責在這些高級地段的角落，用汗水換取每一場活動的順利開始。\n\n雖然我們不穿西裝，但我們把最實在的服務送達。任務完成，在車內喝口水，準備前往下一場，這就是我們最真實的職人生活。✨" },
-    "g0f2PShz": { title: "預售屋案場 3米帳篷搭設", loc: "桃園市中壢區 (國王大道接待中心)", images: ["https://i.postimg.cc/g0f2PShz/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang.jpg","https://i.postimg.cc/MGhp8PBz/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang2.jpg","https://i.postimg.cc/cJVLN93H/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang3.jpg","https://i.postimg.cc/hGHtqymz/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang4.jpg","https://i.postimg.cc/zf9G1thG/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang6.jpg"], desc: "「在夢想成真之前，我們先為您搭起最專業的門面。🏗️」\n\n這幾天八毅團隊受\"鑫創活動團隊\"的委託，來到青埔參與預售屋案場的進場搭設。🤝\n\n為了配合接待中心的高質感，我們這次出動了整潔的 3米白色阿里山帳。雖然我們的工作只是搭設帳篷、擺放桌椅，但看著純白帳篷在現代建築前一字排開，整齊的線條與俐落的沙包固定，無形中也為這場賞屋活動增添了幾分隆重感。\n\n想讓案場活動一秒變「高級感」？找我們就對了！雖然這裡的咖啡香讓人想坐下來看房，但我們更享受完成搭設後，回頭看著這一排整齊帳篷的成就感。✨" }
+    "3rs5P7dS": {
+        tag: "永和國中",
+        title: "57週年校慶 Truss結構",
+        loc: "新北市永和區",
+        images: ["https://i.postimg.cc/3rs5P7dS/image.jpg"],
+        desc: "2025/11/06 這次非常榮幸來到永和國中幫忙搭Truss，永和國中不愧是明星學校，學生們都非常有活力，校內設備和科系也非常多元，讓小編的青春回憶也漸漸浮現，想當年小編的國中是5566.......西街~~~~~噓！！\n#永和國中"
+    },
+    "P5dcjqhX": {
+        tag: "新北投捷運站廣場",
+        title: "捷運站市集3米帳篷佈置",
+        loc: "台北市北投區",
+        images: ["https://i.postimg.cc/P5dcjqhX/image.jpg","https://i.postimg.cc/yYm5tRqx/image.jpg","https://i.postimg.cc/3x36Tw7r/image.jpg","https://i.postimg.cc/x1972dYT/image.jpg","https://i.postimg.cc/MpZsLrbm/image.jpg","https://i.postimg.cc/SxQZPt7d/image.jpg","https://i.postimg.cc/XYN2PDcH/image.jpg"],
+        desc: "今天天氣超~~~~好der啦~~，我們來到新北投捷運站搭我們最引以為傲的3米帳，看看那白如皎月的頂棚，品質維護和安全性就是我們最大的堅持！ #新北投捷運站"
+    },
+    "RhzdLPZN": {
+        tag: "新竹中油",
+        title: "中油場地規劃工程",
+        loc: "新竹市東區",
+        images: ["https://i.postimg.cc/RhzdLPZN/image.jpg","https://i.postimg.cc/XJ5xFM4r/image.jpg","https://i.postimg.cc/TwbQm8f5/image.jpg","https://i.postimg.cc/kGdsvjgg/image.jpg"],
+        desc: "連中油大大都和我們合作了~~~~太港動惹~~~這場好多東西，有Truss、6米帳、3米帳....還有折疊椅那些~~~大家快放大看看我們的帳篷，484真的非~~~常乾淨呢? #新竹中油"
+    },
+    "XYgRGCxL": {
+        tag: "晶華酒店",
+        title: "桃園機場論壇 Truss結構",
+        loc: "台北市中山區",
+        images: ["https://i.postimg.cc/XYgRGCxL/image.jpg","https://i.postimg.cc/MpYCMQtP/image.jpg"],
+        desc: "2025桃園機場論壇，那個美美的光線和後面宛如牆面般堅固的Truss，就是我們的傑作喔~~~ #晶華酒店"
+    },
+    "vBx2zgLF": {
+        tag: "市府轉運站",
+        title: "Partition結構",
+        loc: "台北市信義區",
+        images: ["https://i.postimg.cc/vBx2zgLF/image.jpg","https://i.postimg.cc/XJB18GKH/image.jpg"],
+        desc: "什麼！？八毅也有在做Partition！？ 您沒看錯，我們什麼都有涉略喔，雖然目前料還不多，但在技術上我們是絕對沒問題的，甚至曲面造型的我們也能完工喔~~~~~ #市府轉運站"
+    },
+    "VL8ZqNSy": {
+        tag: "大直美堤",
+        title: "美堤花園圓拱帳工程",
+        loc: "台北市中山區",
+        images: ["https://i.postimg.cc/VL8ZqNSy/image.jpg"],
+        desc: "來大直搭圓拱帳嚕~~~~好久沒來到大直了，想當年小編還在這附近當過HTC的店員呢~~一眨眼又老10歲了(淚奔) #大直美堤花園"
+    },
+    "Kv2pPY16": {
+        tag: "中壢銀河廣場",
+        title: "夜間圓拱帳工程",
+        loc: "桃園市中壢區",
+        images: ["https://i.postimg.cc/Kv2pPY16/image.jpg","https://i.postimg.cc/J4LYNhsT/image.jpg","https://i.postimg.cc/L6pQtsJr/image.jpg"],
+        desc: "兄Day們！！看看那霓虹燈~~~這樣的工作環境，動力都來了~~~真的是太美了！！我是說我們的圓拱帳 #中壢銀河廣場"
+    },
+    "x1jsZFy6": {
+        tag: "台北光點",
+        title: "blooming cafe Truss結構",
+        loc: "台北市中山區",
+        images: ["https://i.postimg.cc/x1jsZFy6/image.jpg"],
+        desc: "這邊進過蠻多次的，上面的帳篷我們也能搭設喔~~看看這Truss和輸出，和背景是不是完美融合呢~ #光點台北"
+    },
+    "5yMgSP24": {
+        tag: "台北福華大飯店",
+        title: "AClub15學術研討會Truss結構",
+        loc: "台北市大安區",
+        images: ["https://i.postimg.cc/5yMgSP24/image.jpg"],
+        desc: "Aclab15大家知道是什麼活動嗎? 是「第15屆亞洲乳酸菌研討會」喔！這是一場國際性的學術盛事，剛好這次輪到我們台灣主辦，現場有來自各國的學者，八毅公司真的很榮幸能成為此次活動廠商的一部份 #台北福華大飯店"
+    },
+    "mk9LxTzv": {
+        tag: "台北戲棚",
+        title: "桌椅租賃",
+        loc: "台北市中山區",
+        images: ["https://i.postimg.cc/mk9LxTzv/image.jpg"],
+        desc: "我們來到台北戲棚送桌椅瞜~~~~~第一次看到戲棚內部，雖然只是照片，但還是掩飾不住小編的興奮感~~~~ 真是太幸福惹~~~~ #台北戲棚"
+    },
+    "kGFc1xVC": {
+        tag: "林口竹林寺",
+        title: "桌椅&舞台佈置",
+        loc: "新北市林口區",
+        images: ["https://i.postimg.cc/kGFc1xVC/image.jpg","https://i.postimg.cc/J0cq6byM/image.jpg"],
+        desc: "這邊是林口竹林山觀音寺，進到莊嚴的聖地，瞬間感受到人類真的是很神奇的生物，雖然渺小，卻能創造宏觀；就像前方的Truss、舞台，整齊劃一的黑金剛折合椅，也是我們八毅盡棉薄之力搭設而成 #林口竹林山觀音寺"
+    },
+    "L6WTrsVV": {
+        tag: "瑞芳地政事務所",
+        title: "圓拱帳進場",
+        loc: "新北市瑞芳區",
+        images: ["https://i.postimg.cc/L6WTrsVV/image.jpg","https://i.postimg.cc/ZK4j9DgC/image.jpg"],
+        desc: "這是瑞芳地政事務所暨衛生所聯合辦公廳舍興建工程動土儀式喔，這圓拱帳真的好大座，真的很佩服外場的兄Day們 #瑞芳地政事務所"
+    },
+    "MK551m2x": {
+        tag: "土城新理想團隊",
+        title: "沙發進場",
+        loc: "新北市土城區",
+        images: ["https://i.postimg.cc/MK551m2x/image.jpg"],
+        desc: "今天來到一個傷心地~~~我們新理想行銷團隊負責的土城建案~~~看著這些房子，沒一間買得起，只能對著鏡子說對不起...還好還吃得起美食，晚點回家坐在一樣的單人沙發，邊吃邊追劇~~ #新理想行銷團隊"
+    },
+    "bvt1VQM6": {
+        tag: "水樣啵啵廣場",
+        title: "3米帳佈置&Truss&牌樓工程&椅子租賃",
+        loc: "新北市新莊區",
+        images: ["https://i.postimg.cc/nzfByXft/image.jpg","https://i.postimg.cc/cHGwpvy2/image.jpg","https://i.postimg.cc/LXFLcJKW/image.jpg","https://i.postimg.cc/HLybvQKF/image.jpg","https://i.postimg.cc/mrH7pQq6/image.jpg","https://i.postimg.cc/bvt1VQM6/image.jpg"],
+        desc: "這邊是三重水樣啵啵廣場，聽名字是不是很可愛呢 ? 感覺好像隨時會出現以前寶可夢的波比一樣 大家有看到我們的圍布嗎 ? 和我們的帳篷一樣乾乾淨淨，還有Truss，這麼大組一樣難不倒我們 #水樣啵啵廣場"
+    },
+    "fTgGBXgN": {
+        tag: "萬豪酒店",
+        title: "Truss結構",
+        loc: "台北市中山區",
+        images: ["https://i.postimg.cc/fTgGBXgN/image.jpg","https://i.postimg.cc/L60cNf02/image.jpg"],
+        desc: "大家快看快看，這是我們去萬豪酒店搭的，小編看不出這是什麼造型，所以拉多一點人來看，看有沒有人看出端倪。我們外場除了做這種類型的Truss外，如果有需要造型Truss或是拱型Truss，也一樣有辦法喔，我們外場人員無所不能~~~ #萬豪酒店"
+    },
+    "MKpVJkNW": {
+        tag: "湖口市場",
+        title: "圓拱帳工程",
+        loc: "新竹縣湖口鄉",
+        images: ["https://i.postimg.cc/MKpVJkNW/image.jpg","https://i.postimg.cc/153w1x28/image.jpg","https://i.postimg.cc/BQnHfWkv/image.jpg","https://i.postimg.cc/VLknPyp8/image.jpg"],
+        desc: "跑來新竹湖口市場了，可惜小編不能跟，沒法去吃好料的 #新竹湖口市場"
+    },
+    "JzdQ27hr": {
+        tag: "礁溪高爾夫球場",
+        title: "Truss結構",
+        loc: "宜蘭縣礁溪鄉",
+        images: ["https://i.postimg.cc/JzdQ27hr/image.jpg"],
+        desc: "同一天有湖口也有礁溪，厲害吧~~~ 這組Truss搭的真漂亮，根背景完美融合，毫無違和感，而且它地面高低起伏很大，能夠搭這麼平著實不簡單啊~~~~#礁溪高爾夫球場"
+    },
+    "T29PC76C": {
+        tag: "松菸",
+        title: "黑金剛摺疊椅租賃",
+        loc: "台北市信義區",
+        images: ["https://i.postimg.cc/T29PC76C/image.jpg","https://i.postimg.cc/GpWxbMGc/image.jpg"],
+        desc: "松菸也有我們的局耶~~雖然只是進少少的桌椅，但相信以我們的堅持和品質，再過不久，肯定會出到好幾台車的量~~~~(期待)"
+    },
+    "MZbm8mGD": {
+        tag: "林口竹林寺",
+        title: "竹林寺圓拱帳&Truss帳&舞台&3米帳佈置",
+        loc: "新北市林口區",
+        images: ["https://i.postimg.cc/MZbm8mGD/image.jpg","https://i.postimg.cc/fWjfhfbx/image.jpg","https://i.postimg.cc/L5Rk1nxZ/image.jpg"],
+        desc: "再次來到竹林山觀音寺，這次非常大場，感謝客戶對八毅團隊的信任，五次我們不僅僅有帳篷，還有Truss帳、舞台..等，甚至也有帝王帳，完工後大家都累癱了 #林口竹林山觀音寺"
+    },
+    "Nfs7G29h": {
+        tag: "竹圍國小",
+        title: "Truss結構",
+        loc: "新北市淡水區",
+        images: ["https://i.postimg.cc/Nfs7G29h/image.jpg","https://i.postimg.cc/28kFjLbY/image.jpg"],
+        desc: "竹圍國小的小口Truss，設計得非常可愛，很喜歡竹圍國小的校內風格，如果我可以再回到國小該有多好~~~ #竹圍國小"
+    },
+    "qM1cNBy1": {
+        tag: "木柵動物園",
+        title: "3米帳篷&6米帳篷",
+        loc: "台北市文山區",
+        images: ["https://i.postimg.cc/qM1cNBy1/image.jpg","https://i.postimg.cc/QxfgFN1b/image.jpg"],
+        desc: "挖~~~~是我小時候最愛去的木柵動物園ㄝ，真是令人懷念，可惜這次不是來看動物的，是要來搭帳篷，我們這場有6米宮廷帳，也有3米帳，我們的帳篷真的無論何時看都是這麼乾淨，做場速度又快又安全！也難怪客戶一致給我們好評~~#木柵動物園"
+    },
+    "SN18yTbL": {
+        tag: "中和國小",
+        title: "圓拱帳工程&3米帳篷&6米帳篷&桌椅紅龍",
+        loc: "新北市中和區",
+        images: ["https://i.postimg.cc/kgVSDQ7f/image.jpg","https://i.postimg.cc/153w1x20/image.jpg","https://i.postimg.cc/SN18yTbL/image.jpg"],
+        desc: "晚上來進中和國小，感覺有點奇妙，以前小時候特別喜歡放學後又溜回來學校聚會，長大後一樣是回來學校，只是變成工作了。人生其實真要說起來，也是蠻單純的呢~ #中和國小"
+    },
+    "KzhB61hF": {
+        tag: "漢來飯店",
+        title: "高吧桌",
+        loc: "台北市南港區",
+        images: ["https://i.postimg.cc/V6PnxJPm/image.jpg","https://i.postimg.cc/KzhB61hF/image.jpg"],
+        desc: "大家有看過這樣的高吧桌嗎 ? 桌巾的旋轉是不是很美呢 ? 我們的外場人員不僅僅身負怪力，細節部分也絕不馬虎，很符合飯店的風格吧！ #漢來大飯店"
+    },
+    "NMvm3Kvg": {
+        tag: "水樣啵啵廣場",
+        title: "桌椅租賃",
+        loc: "新北市新莊區",
+        images: ["https://i.postimg.cc/NMvm3Kvg/image.jpg"],
+        desc: "又來到水樣啵啵送桌椅了，可惜這次還是沒有看到胖丁 #水樣啵啵廣場"
+    },
+    "8ctvfwJ8": {
+        tag: "大都會公園",
+        title: "3米帳篷&桌椅",
+        loc: "新北市新莊區",
+        images: ["https://i.postimg.cc/2jwhtjcj/image.jpg","https://i.postimg.cc/8ctvfwJ8/image.jpg"],
+        desc: "嗚ㄚㄚㄚㄚㄚ~~~~~終於來到大都會公園了，好久沒呼吸新鮮空氣，這邊就在我們公司附近，但一直都沒空來，能出來踏青實在是太好了，這場除了圓拱帳，還有桌椅那些，說真的看外勤人員作業感覺非常不好搭，真的是辛苦了，大家都非常了不起！！#新北大都會公園"
+    },
+    "76r0F5rH": {
+        tag: "萬華金義宮",
+        title: "屋型帳&桌椅",
+        loc: "台北市萬華區",
+        images: ["https://i.postimg.cc/76r0F5rH/image.jpg","https://i.postimg.cc/C1pk3RpK/image.jpg"],
+        desc: "我們這次在艋舺金義宮喔！地址是:台北市萬華區梧州街2巷6號喔，沒辦法定位，大家如果要來拜拜不要跑錯地方瞜~~ 這邊搭了2頂屋型帳還有一些點心椅，希望活動一切平安順利 #艋舺金義宮"
+    },
+    "PJtZq0qV": {
+        tag: "華山1914文創園區",
+        title: "圓拱帳工程",
+        loc: "台北市中正區",
+        images: ["https://i.postimg.cc/PJtZq0qV/image.jpg","https://i.postimg.cc/Wz2r4x49/image.jpg"],
+        desc: "在古色古香的華山1914搭圓拱帳，這種機會真的是不常有，雖然看起來和背景有點違和，但也凸顯了時間雖然慢慢帶走了人類和建築的外貌，卻帶不走源自生命的活力，只要活著，就有無限可能 #華山1914文化創意產業園區"
+    },
+    "Y23YP2XZ": {
+        tag: "大都會公園",
+        title: "圓拱帳工程",
+        loc: "新北市新莊區",
+        images: ["https://i.postimg.cc/h4rTY4yF/image.jpg","https://i.postimg.cc/Y23YP2XZ/image.jpg"],
+        desc: "再次回到大都會公園，感謝客戶的信任，讓我們的堅持能有成果，從白天忙到半夜，就是為了給顧客最好、最安全的活動空間，最乾淨舒適的外觀，這就是八毅，公司培育出的能力，讓我們擁有相同的DNA，呈現最完美的品質 #大都會公園"
+    },
+    "153w1x21": {
+        tag: "濟安宮",
+        title: "桌椅租賃",
+        loc: "新北市樹林區",
+        images: ["https://i.postimg.cc/153w1x21/image.jpg"],
+        desc: "來濟安宮送桌椅摟~~我們很常來這邊，小編家也住附近而已，只是來送八毅的東西還是第一次，我們的桌椅數量蠻多的，不僅卡榫那些都完好無損，外觀也都乾乾淨淨的，歡迎有需要的冰u們跟八毅預約喔~~~~~#樹林濟安宮"
+    },
+    "YqCYBcZG": {
+        tag: "湖口市場",
+        title: "圓拱帳工程",
+        loc: "新竹縣湖口鄉",
+        images: ["https://i.postimg.cc/YqCYBcZG/image.jpg","https://i.postimg.cc/HskX1GRb/image.jpg"],
+        desc: "最近真的好常跑湖口，這部分當初在規劃就有考量進去瞜~~~所以我們連頂棚都選好尺寸了，畢竟湖口一趟真的不近，我們一定要細心再細心，才能變得更專業、更有效率~~~ #新竹湖口"
+    },
+    "GhJmRp8C": {
+        tag: "永慶房屋南港店",
+        title: "桌椅租賃",
+        loc: "台北市南港區",
+        images: ["https://i.postimg.cc/GhJmRp8C/image.jpg"],
+        desc: "今天來送南港永慶房屋的桌椅，感謝永慶房屋一直支持我們，三不五時就發工作機會給我們 #永慶房屋南港店"
+    },
+    "NMmRQjGX": {
+        tag: "中和國小",
+        title: "3米帳篷",
+        loc: "新北市中和區",
+        images: ["https://i.postimg.cc/NMmRQjGX/image.jpg","https://i.postimg.cc/RhmKhxqn/image.jpg","https://i.postimg.cc/3NhmNQWv/image.jpg","https://i.postimg.cc/GtRGtn9k/image.jpg","https://i.postimg.cc/Y07Y0BjQ/image.jpg","https://i.postimg.cc/6QDdsvKB/image.jpg","https://i.postimg.cc/nL6v8DxV/image.jpg","https://i.postimg.cc/760SqZP5/image.jpg","https://i.postimg.cc/G2Gvbm3t/image.jpg","https://i.postimg.cc/FK2jtLvr/image.jpg"],
+        desc: "晚上來進中和國小，感覺有點奇妙，以前小時候特別喜歡放學後又溜回來學校聚會，長大後一樣是回來學校，只是變成工作了。人生其實真要說起來，也是蠻單純的呢~ #中和國小"
+    },
+    "0jJD2GYQ": {
+        tag: "湖口市場",
+        title: "圓拱帳工程",
+        loc: "新竹縣湖口鄉",
+        images: ["https://i.postimg.cc/0jJD2GYQ/image.jpg","https://i.postimg.cc/kGtKXNQD/image.jpg","https://i.postimg.cc/qRF2TD3h/image.jpg","https://i.postimg.cc/FR604CLY/image.jpg","https://i.postimg.cc/26tnD9Z3/image.jpg","https://i.postimg.cc/G2fvCgyB/image.jpg"],
+        desc: "最近真的好常跑湖口，這邊真的很舒服，天氣又好，來這搭圓拱帳感覺真的很好。大家有注意到圓拱帳前面有支路燈嗎 ? 這部份當初在規劃就有考量進去瞜~~~所以我們連頂棚都選好尺寸了，畢竟湖口一趟真的不近，我們一定要細心再細心，才能變得更專業、更有效率~~~ #新竹湖口"
+    },
+    "dtjpqG5F": {
+        tag: "湖口張公廳",
+        title: "圓拱帳工程",
+        loc: "新竹縣湖口鄉",
+        images: ["https://i.postimg.cc/dtjpqG5F/image.jpg","https://i.postimg.cc/GhxVcvXr/image.jpg","https://i.postimg.cc/7YndxSKq/image.jpg","https://i.postimg.cc/020F87VP/image.jpg"],
+        desc: "湖口我們又又又又又來拉~~~~這是來搭張公廳的圓拱帳，小編的老家也在新竹呢，把拔是位非常純正的客家人喔，我們就住在新竹老街裡面，如果有同鄉的冰U歡迎找我們喔~~   #新竹湖口張氏公廳"
+    },
+    "0jyxYx50": {
+        tag: "育達高中",
+        title: "Truss結構",
+        loc: "台北市松山區",
+        images: ["https://i.postimg.cc/0jyxYx50/image.jpg","https://i.postimg.cc/C5xYGYMN/image.jpg","https://i.postimg.cc/XqY3f3Nc/image.jpg","https://i.postimg.cc/0jyxYx5C/image.jpg"],
+        desc: "來到小編馬麻的學校了~~~聽說這次是桃園育達高中運動會。八毅很榮幸能成為協作廠商，來這搭3米紅白，大家看看我們整齊的圍布，連高度都幾乎一致，是不是真的很漂亮呢~~~  #桃園育達高中"
+    },
+    "3J58dMms": {
+        tag: "橫山大山背",
+        title: "圓拱帳 & 舞台工程",
+        loc: "新竹縣橫山鄉",
+        images: ["https://i.postimg.cc/3J58dMms/image.jpg","https://i.postimg.cc/mZFZLZz6/image.jpg","https://i.postimg.cc/tCQqY0FQ/image.jpg","https://i.postimg.cc/9F5mr3yH/image.jpg"],
+        desc: "這邊是在新竹縣橫山鄉的大山背喔~~~小編對這邊雖然不是太熟，不過聽說附近有著名地標 '大崎棟古道'，聽說當地有很美的景觀 and 美食，大家有空可以安排一下來這邊走走散散心喔～～～ 對了！偏題的太嚴重！等等要被老闆唸了．．．這場八毅是搭圓拱帳和舞台喔！在風這麼大的地方，帳棚穩到連些微擺動都沒有，更不用說這工整度幾乎算藝術品了～～ ～ ＃新竹縣橫山鄉大山背"
+    },
+    "fLvbNBgy": {
+        tag: "考試院",
+        title: "舞台工程進場",
+        loc: "台北市文山區 (新店交界)",
+        images: ["https://i.postimg.cc/fLvbNBgy/image.jpg","https://i.postimg.cc/XJgvbQDp/image.jpg"],
+        desc: "來到文山區考試院搭設舞台，這裡是許多國考生的戰場，我們八毅也要拿出職人精神，把舞台搭得穩穩當當，祝所有考生都能金榜題名！ #考試院 #舞台工程"
+    },
+    "nr6Shx0S": {
+    tag: "湖口張公廳",
+    title: "圓拱帳搭建進場",
+    loc: "新竹縣湖口鄉 (張公廳)",
+    images: [
+        "https://i.postimg.cc/nr6Shx0S/yong-chang-zhang-gong-ting-yuan-gong-zhang-jin-chang.jpg",
+        "https://i.postimg.cc/dtjpqG5F/永昌_湖口_張公廳_圓拱帳_進場.jpg",
+        "https://i.postimg.cc/020F87VP/永昌_湖口_張公廳_圓拱帳_進場4.jpg",
+        "https://i.postimg.cc/Vk4TXx69/yong-chang-zhang-gong-ting-yuan-gong-zhang-jin-chang2.jpg",
+        "https://i.postimg.cc/9Q1Sy6Md/yong-chang-zhang-gong-ting-yuan-gong-zhang-jin-chang3.jpg",
+        "https://i.postimg.cc/0yZ37TQd/yong-chang-zhang-gong-ting-yuan-gong-zhang-jin-chang4.jpg"
+    ],
+    desc: "在具有歷史意義的湖口張公廳，八毅完成了美觀且耐用的圓拱帳搭建。白色帳體與古色古香的場域相互對照，不只遮風擋雨，更讓整體活動質感大提升！ #湖口 #張公廳 #圓拱帳工程 #八毅硬體"
+   },
+    "fbfb7Td9": {
+    tag: "新屋九斗",
+    title: "豫章堂圓拱帳搭建",
+    loc: "桃園市新屋區 (九斗豫章堂)",
+    images: [
+        "https://i.postimg.cc/fbfb7Td9/yong-chang-jiu-dou-yu-zhang-tang-yuan-gong-zhang-jin-chang.jpg",
+        "https://i.postimg.cc/TPJPjYbn/yong-chang-jiu-dou-yu-zhang-tang-yuan-gong-zhang-jin-chang2.jpg"
+    ],
+    desc: "來到桃園新屋的九斗豫章堂，面對這座百年宗祠的歷史底蘊，搭設過程中不禁讓人感到肅然起敬。我們用最整齊的圓拱帳，守護這份傳承的隆重感。  #桃園市新屋區九斗豫章堂"
+   },
+    "853xj94F": {
+    tag: "內湖玉東",
+    title: "永慶房屋活動桌椅進場",
+    loc: "台北市內湖區 (玉東公園)",
+    images: ["https://i.postimg.cc/853xj94F/yong-qing-fang-wu-yu-dong-gong-yuan-zhuo-yi-jin-chang.jpg"],
+    desc: "「在每一場精彩活動的背後，總有我們默默配送的身影。🚚」\n\n這幾天剛在桃園忙完，轉個身我們又載著一車的桌椅設備，來到內湖玉東公園。這次是協助\"永慶房屋\"的租賃服務。🤝\n\n雖然我們只是負責把設備送到，沒有華麗的舞台搭建，但看到這幾車裝載滿滿的桌椅，心裡還是有一份踏實感。每一張桌子、每一把椅子，都是為了讓來到現場的人，能有個舒適的位置坐下來參與活動。\n\n在公園的樹蔭下，看著大家準備開始熱鬧，我們也完成任務準備趕往下一場。或許路過的毛小孩沒空理我們，但能成為每一場活動最基層的支柱，這就是八毅團隊平凡卻重要的日常。✨"
+   },
+    "fLZJ1qm9": {
+    tag: "黎明科大",
+    title: "Truss結構 & 舞台搭建",
+    loc: "新北市泰山區 (黎明技術學院)",
+    images: ["https://i.postimg.cc/fLZJ1qm9/xiao-ge-li-ming-ke-da-wu-tai-Truss-jin-chang.jpg"],
+    desc: "「今天不練舞，我們來黎明搭舞台！🏗️」\n\n去年底在中壢、育達高中到處跑，今天終於殺到黎明科大啦！🎓\n\n快看這地毯鋪得有多平整，走在上面都忍不住想來段Breaking。還有這次的 Truss 結構，正面加上精美的視覺輸出後，整個質感直接頂天，專業度滿分！不只穩如泰山，拍照更是自帶後台濾鏡！📸\n\n想讓你的校園活動一秒變「高大上」？找我們就對了！這舞台帥到連黎明校園裡的鴿子都會停下來多看兩眼，順便考慮要不要報名表演！🕊️✨\n\n#黎明科大 #專業搭設 #最平的地毯在這裡 #Truss輸出 #活動舞台 #八毅工程"
+    },
+    "fLFnWQCg": {
+    tag: "松山華固",
+    title: "永慶房屋桌椅 & 桌巾進場",
+    loc: "台北市松山區 (華固名鑄)",
+    images: [
+        "https://i.postimg.cc/fLFnWQCg/109909_0.jpg",
+        "https://i.postimg.cc/263NfSQt/109908_0.jpg",
+        "https://i.postimg.cc/263NfSQX/109907_0.jpg"
+    ],
+    desc: "「在繁忙的敦化北路，我們也是一道風景。🚚」\n\n剛完成南港的任務，八毅團隊載著設備轉進了：華固名鑄。再次感謝\"永慶房屋\"的活動委託。🤝\n\n站在這座充滿設計感的建築前，雖然我們只是把這一車的桌椅設備送到位，沒有參與什麼隆重的典禮，但看著這些支撐活動的基礎設備一件件卸下，心裡還是有種「使命必達」的成就感。\n\n這裡的街道很精緻、節奏很快，而我們負責在這些高級地段的角落，用汗水換取每一場活動的順利開始。\n\n雖然我們不穿西裝，但我們把最實在的服務送達。任務完成，在車內喝口水，準備前往下一場，這就是我們最真實的職人生活。✨\n\n#華固名鑄 #敦化北路 #永慶房屋 #設備租賃 #職人日常 #默默支撐 #八毅工程 #最實在的配送"
+    },
+    "g0f2PShz": {
+    tag: "中壢青埔",
+    title: "預售屋案場 3米帳篷搭設",
+    loc: "桃園市中壢區 (國王大道接待中心)",
+    images: [
+        "https://i.postimg.cc/g0f2PShz/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang.jpg",
+        "https://i.postimg.cc/MGhp8PBz/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang2.jpg",
+        "https://i.postimg.cc/cJVLN93H/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang3.jpg",
+        "https://i.postimg.cc/hGHtqymz/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang4.jpg",
+        "https://i.postimg.cc/zf9G1thG/xin-chuang-guo-wang-da-dao-3mi-bai-jin-chang6.jpg"
+    ],
+    desc: "「在夢想成真之前，我們先為您搭起最專業的門面。🏗️」\n\n這幾天八毅團隊受\"鑫創活動團隊\"的委託，來到青埔參與預售屋案場的進場搭設。🤝\n\n為了配合接待中心的高質感，我們這次出動了整潔的 3米白色阿里山帳。雖然我們的工作只是搭設帳篷、擺放桌椅，但看著純白帳篷在現代建築前一字排開，整齊的線條與俐落的沙包固定，無形中也為這場賞屋活動增添了幾分隆重感。\n\n想讓案場活動一秒變「高級感」？找我們就對了！雖然這裡的咖啡香讓人想坐下來看房，但我們更享受完成搭設後，回頭看著這一排整齊帳篷的成就感。✨\n\n不論是華麗的舞台還是簡約的遮陽帳，八毅團隊永遠是活動現場最穩固的後援。#青埔案場 #鑫創活動 #預售屋活動 #帳篷搭設 #阿里山帳 #八毅工程 #職人精神 #細節控的日常"
+    }
 };
-
-// 3. 注入佈置氣球案例
+    
+// 注入佈置氣球案例
 const balloonUrls = ["https://i.postimg.cc/PrJxfRxs/1965927-0.jpg", "https://i.postimg.cc/NfFMGzMv/1981332-0.jpg", "https://i.postimg.cc/QxCtNyth/1981333-0.jpg", "https://i.postimg.cc/L68qYsxN/1981334-0.jpg", "https://i.postimg.cc/kXgV65Tw/1981335.jpg", "https://i.postimg.cc/RVZ360gd/1981336.jpg", "https://i.postimg.cc/bNwGDvmm/1981337.jpg", "https://i.postimg.cc/J4zyDhpF/1981338.jpg", "https://i.postimg.cc/J4zyDhpg/1981339.jpg", "https://i.postimg.cc/YqC4GSdZ/1981340.jpg"];
 balloonUrls.forEach((url, index) => {
     const id = `ball_item_${index}`;
     photoLibrary[id] = { tag: "活動佈置", title: `佈置成品 ${index + 1}`, loc: "精選案例", images: [url], desc: "八毅硬體結構精選佈置作品。" };
-    if (!photos_Decor.includes(id)) photos_Decor.push(id);
+    photos_Decor.push(id);
 });
-
-// 4. 【解決 UNDEFINED 的關鍵函數】
-// 使用此函數獲取資料，若 ID 不存在會返回預設對象而非 undefined
-function getPhotoData(id) {
-    return photoLibrary[id] || {
-        title: "資料整理中",
-        loc: "未知地點",
-        images: ["https://via.placeholder.com/400x300?text=Image+Coming+Soon"],
-        desc: "此案例詳情正在更新中，敬請期待八毅職人的精彩分享！"
-    };
-}
-
-// 範例：安全地渲染頁面 (請根據你的 UI 邏輯參考此寫法)
-function renderGallery(categoryId, container) {
-    const categoryMap = {
-        'tables': photos_Tables,
-        'truss': photos_Truss,
-        'tent': photos_Tent,
-        'stage': photos_Stage,
-        'decor': photos_Decor
-    };
-
-    const ids = categoryMap[categoryId] || [];
-    
-    ids.forEach(id => {
-        const data = getPhotoData(id); // 這裡使用了安全函數，絕不會發生 data.title 是 undefined
-        // ... 執行你的 DOM 渲染邏輯 ...
-        console.log(`成功讀取案例：${data.title}`);
-    });
-}
 
 
 // --- 卡片相簿連動系統 ---
