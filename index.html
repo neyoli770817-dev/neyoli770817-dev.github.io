@@ -1088,34 +1088,34 @@ function openProjectGallery(projectId) {
     }
 
     function updateLightbox() {
-        const lb = document.getElementById('imgLightbox');
-        if(!lb || !currentProject) return; // 加入防呆
-        const info = currentProject;
-        const formattedDesc = info.desc.replace(/\n/g, '<br>');
-        lb.innerHTML = `
-            <div class="lightbox-content" onclick="event.stopPropagation()">
-                <button class="close-btn" onclick="closeLightbox()">✕</button>
-                <div class="lightbox-image-side">
-                    <img src="${info.images[currentImgIdx]}" id="target-img">
-                    ${info.images.length > 1 ? `
-                        <div class="nav-controls">
-                            <button class="nav-btn prev" onclick="changeImage(-1)">❮</button>
-                            <button class="nav-btn next" onclick="changeImage(1)">❯</button>
-                        </div>
-                        <div class="img-counter"><span class="current">${currentImgIdx + 1}</span> / <span class="total">${info.images.length}</span></div>
-                    ` : ''}
-                </div>
-                <div class="lightbox-info-side">
-                    <h2 style="color: #BA2D30;">${info.title}</h2>
-                    <p><i class="bi bi-geo-alt-fill me-1"></i>${info.loc}</p>
-                    <hr>
-                    <div class="info-body"><p>${formattedDesc}</p></div>
-                    <button class="btn btn-outline-light w-100 mt-4" onclick="closeLightbox()">關閉</button>
-                </div>
-            </div>`;
-        lb.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
+    const lb = document.getElementById('imgLightbox');
+    if(!lb || !currentProject) return; // 加入防呆
+    const info = currentProject;
+    const formattedDesc = info.desc.replace(/\n/g, '<br>');
+    lb.innerHTML = `
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <div class="lightbox-image-side">
+                <img src="${info.images[currentImgIdx]}" id="target-img">
+                ${info.images.length > 1 ? `
+                    <div class="nav-controls">
+                        <button class="nav-btn prev" onclick="changeImage(-1)">❮</button>
+                        <button class="nav-btn next" onclick="changeImage(1)">❯</button>
+                    </div>
+                    <div class="img-counter"><span class="current">${currentImgIdx + 1}</span> / <span class="total">${info.images.length}</span></div>
+                ` : ''}
+            </div>
+
+            <div class="lightbox-info-side">
+                <h2 style="color: #BA2D30;">${info.title}</h2>
+                <p><i class="bi bi-geo-alt-fill me-1"></i>${info.loc}</p>
+                <hr>
+                <div class="info-body"><p>${formattedDesc}</p></div>
+                <button class="btn btn-outline-light w-100 mt-4" onclick="closeLightbox()">關閉</button>
+            </div>
+        </div>`;
+    lb.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
 
     function changeImage(step) {
         currentImgIdx = (currentImgIdx + step + currentProject.images.length) % currentProject.images.length;
