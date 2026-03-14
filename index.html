@@ -374,6 +374,15 @@
                 width: calc(25% - 15px);
             }
         }
+       .modal-content {
+    max-height: 80vh; /* 限制內容最高只佔螢幕 80%，留空間給按鈕 */
+    overflow-y: auto; /* 當內容超過高度時，允許內部滑動 */
+    -webkit-overflow-scrolling: touch; /* 讓 iOS 滑動更順暢 */
+}
+       .modal-body {
+    padding-bottom: 80px; /* 預留足夠空間，確保按鈕能滑出來 */
+    padding-bottom: env(safe-area-inset-bottom); /* 針對 iPhone 全螢幕手機的保護 */
+}
 
         /* --- 手機版燈箱修正：取消固定叉叉，改為向下捲動 --- */
         @media (max-width: 768px) {
