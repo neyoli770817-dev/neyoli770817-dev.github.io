@@ -383,6 +383,16 @@
     padding-bottom: 80px; /* 預留足夠空間，確保按鈕能滑出來 */
     padding-bottom: env(safe-area-inset-bottom); /* 針對 iPhone 全螢幕手機的保護 */
 }
+       .btn-close {
+    position: fixed; /* 固定位置，不隨文案滑動 */
+    top: 20px;
+    right: 20px;
+    z-index: 9999; /* 確保在最上層 */
+    background-color: rgba(0,0,0,0.5); /* 加點半透明背景增加辨識度 */
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+}
 
         /* --- 手機版燈箱修正：取消固定叉叉，改為向下捲動 --- */
         @media (max-width: 768px) {
