@@ -101,7 +101,7 @@
             flex-direction: column;    
             justify-content: flex-start; /* 改為靠上對齊，改用 padding 控制位置 */
             align-items: center;       /* 水平置中 */
-            padding-top: 30vh;         /* 電腦版：Logo 離頂部 30% 高度，視覺偏下 */
+            padding-top: 30vh;           /* 電腦版：Logo 離頂部 30% 高度，視覺偏下 */
             transition: opacity 0.8s ease-out;
         }
         .logo-box {
@@ -377,7 +377,7 @@
             }
         }
 
-        /* --- 只修復 X 的辨識度 --- */
+        /* --- 只修復 X 的辨識度：圓圈半透明灰，X 純黑 --- */
         .modal-content {
             max-height: 80vh; 
             overflow-y: auto; 
@@ -389,16 +389,30 @@
         }
         .btn-close {
             position: fixed; 
-            top: 20px;
-            right: 20px;
+            top: 10px;      /* 手機版往上移 */
+            right: 15px;
             z-index: 9999; 
-            background-color: #333 !important; /* 顯眼的深色背景 */
+            background-color: rgba(128, 128, 128, 0.5) !important; /* 半透明灰色 */
             opacity: 1 !important;
-            color: white !important;
             border-radius: 50%;
-            padding: 12px;
+            width: 40px;
+            height: 40px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background-image: none !important; /* 移除預設 X */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        /* 畫出純黑色的 X */
+        .btn-close::before, .btn-close::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background-color: #000; /* X 是黑色 */
+        }
+        .btn-close::before { transform: rotate(45deg); }
+        .btn-close::after { transform: rotate(-45deg); }
 
         /* --- 手機版專屬修正區塊 --- */
         @media (max-width: 768px) {
@@ -439,7 +453,7 @@
                 display: flex !important; 
                 width: 90% !important;
                 height: 50px !important;
-                background: #333 !important; /* 顯眼顏色 */
+                background: #333 !important; /* 底部按鈕維持顯眼深色 */
                 color: #ffffff !important; 
                 font-size: 18px !important; 
                 border-radius: 8px !important; 
