@@ -302,7 +302,7 @@
             border-radius: 6px; z-index: 5; backdrop-filter: blur(4px);
         }
 
-        /* --- Lightbox (更正後) --- */
+        /* --- Lightbox --- */
         #imgLightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.95); display: none;
@@ -311,7 +311,7 @@
         .lightbox-content {
             display: flex; 
             width: 95vw; 
-            height: 90vh; /* 固定高度是滾動關鍵 */
+            height: 90vh;
             background: #111; 
             border-radius: 15px; 
             overflow: hidden;
@@ -326,11 +326,10 @@
             padding: 50px 35px; 
             background: #1a1a1a; 
             color: white; 
-            overflow-y: auto; /* 開啟滾動 */
+            overflow-y: auto; 
             border-left: 1px solid rgba(255,255,255,0.1); 
         }
         
-        /* 優化右側捲軸樣式 */
         .lightbox-info-side::-webkit-scrollbar { width: 6px; }
         .lightbox-info-side::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
         .lightbox-info-side::-webkit-scrollbar-thumb:hover { background: var(--brand-red); }
@@ -375,25 +374,52 @@
                 width: calc(25% - 15px);
             }
         }
+
+        /* --- 手機版燈箱修正：取消固定叉叉，改為向下捲動 --- */
         @media (max-width: 768px) {
-            .lightbox-content { flex-direction: column !important; width: 100vw !important; height: 100vh !important; border-radius: 0 !important; overflow-y: auto !important; }
-            .lightbox-image-side { height: 50vh !important; width: 100% !important; }
-            .lightbox-info-side { flex: 1 !important; width: 100% !important; padding: 30px 20px !important; border-left: none !important; }
+            #imgLightbox {
+                align-items: flex-start !important;
+                overflow-y: auto !important;
+            }
+            .lightbox-content { 
+                flex-direction: column !important; 
+                width: 100vw !important; 
+                height: auto !important; /* 改為自動高度以支援捲動 */
+                min-height: 100vh !important;
+                border-radius: 0 !important; 
+            }
+            .lightbox-image-side { 
+                height: 45vh !important; 
+                width: 100% !important; 
+                flex-shrink: 0 !important;
+            }
+            .lightbox-info-side { 
+                flex: none !important; 
+                width: 100% !important; 
+                height: auto !important;
+                padding: 30px 20px 100px !important; /* 底部加 100px 確保滑到底能看到按鈕 */
+                border-left: none !important; 
+                overflow-y: visible !important;
+            }
+            /* 讓關閉按鈕排在文字下方，不再固定在右上角 */
             .close-btn { 
-                position: fixed !important; 
-                top: 15px !important; 
-                right: 15px !important; 
-                z-index: 99999 !important; 
-                background: rgba(0, 0, 0, 0.6) !important;
-                color: #ffffff !important; 
-                font-size: 30px !important; 
-                width: 40px !important; 
-                height: 40px !important; 
+                position: relative !important; 
+                top: 0 !important;
+                right: 0 !important;
+                margin: 30px auto 0 !important;
                 display: flex !important; 
+                width: 90% !important;
+                height: 50px !important;
+                background: #444 !important;
+                color: #ffffff !important; 
+                font-size: 18px !important; 
+                border-radius: 8px !important; 
                 align-items: center; 
                 justify-content: center; 
-                border-radius: 50%; 
+                z-index: 10 !important;
             }
+            /* 手機版隱藏切換按鈕，避免干擾捲動 */
+            .nav-btn { width: 45px; height: 45px; }
         }
 
         .card { 
@@ -401,7 +427,7 @@
             border: none !important; 
             box-shadow: none !important; 
         }
-    </style>
+</style>
 </head>
     
 <body class="is-loading">
