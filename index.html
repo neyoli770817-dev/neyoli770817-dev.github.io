@@ -741,13 +741,13 @@
 <div class="modal fade" id="albumModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" style="position: fixed; top: 25px; right: 25px; z-index: 1060;"></button>
+            
             <div class="modal-header">
                 <h5 class="modal-title">產品相簿</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
             <div class="modal-body pt-0">
-                
                 <ul class="nav nav-tabs d-none" id="albumTabs" role="tablist" style="display: none !important;">
                     <li class="nav-item"><button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#gallery-1" type="button" role="tab" aria-selected="true">桌椅</button></li>
                     <li class="nav-item"><button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#gallery-2" type="button" role="tab" aria-selected="false">Truss</button></li>
@@ -768,14 +768,13 @@
     </div>
 </div>
 
-        
-            
-</div> <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="position: fixed; top: 25px; right: 25px; z-index: 1060;"></button>
+            
             <div class="modal-header">
                 <h5 class="modal-title fw-bold" id="prod-modal-title">產品名稱</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -794,7 +793,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
     
 <div id="imgLightbox" class="lightbox-overlay" onclick="closeLightbox()" style="display:none;"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
