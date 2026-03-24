@@ -54,11 +54,12 @@
 </head>
 
 <style>
-    /* --- 變數與基礎設定 --- */
+    /* --- 1. 變數與基礎設定 --- */
     :root { 
         --brand-red: #722F37; 
         --bg-light: #f5f3ef;
         --text-dark: #333;
+        --card-bg: #F5F5DC;
     }
 
     body, html { 
@@ -66,13 +67,23 @@
         background-color: var(--bg-light); 
         margin: 0; 
         width: 100%;
+        overflow-x: hidden;
     }
+
     body.is-loading { overflow: hidden !important; }
 
+    /* 通用類別 */
     .object-fit-cover { object-fit: cover; }
     .mb-5 { margin-bottom: 3.5rem !important; }
+    .main-wrapper {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+        box-sizing: border-box; 
+    }
 
-    /* --- Navbar --- */
+    /* --- 2. Navbar --- */
     .navbar { 
         background-color: var(--brand-red) !important; 
         box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
@@ -88,334 +99,154 @@
         font-weight: 500; 
     }
 
-    /* --- Loading Screen (針對手機與電腦位置微調) --- */
+    /* --- 3. Loading Screen & Animation --- */
     #loading-screen {
-        position: fixed; 
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        height: 100vh;
-        background: #ffffff; 
-        z-index: 9999; 
-        display: flex;
-        flex-direction: column;    
-        justify-content: flex-start; 
-        align-items: center;       
-        padding-top: 30vh;           
-        transition: opacity 0.8s ease-out;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        background: #ffffff; z-index: 9999; display: flex;
+        flex-direction: column; justify-content: flex-start; align-items: center;       
+        padding-top: 30vh; transition: opacity 0.8s ease-out;
     }
     .logo-box {
-        width: 220px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        width: 220px; display: flex; flex-direction: column; align-items: center;
     }
-    .logo-box svg {
-        width: 220px !important;
-        height: auto !important;
-        max-width: 100%;
-        display: block;
-        margin: 0 auto;
-    }
-    .brand-name-loading { 
-        font-size: 24px; 
-        font-weight: 900; 
-        color: #000; 
-        margin-top: 15px;
-        letter-spacing: 4px; 
-        opacity: 0; 
-        animation: fadeIn 1s 0.6s forwards;
-        padding-left: 0; 
-        text-align: center;
-        width: 100%;
-    }
-
-    /* --- Animations --- */
-    @keyframes fadeInUp { 
-        from { opacity: 0; transform: translateY(30px); } 
-        to { opacity: 1; transform: translateY(0); } 
-    }
-    @keyframes fadeIn { 
-        from { opacity: 0; } 
-        to { opacity: 1; } 
-    }
-    @keyframes pulse-red { 
-        0% { opacity: 1; transform: scale(0.95); } 
-        50% { opacity: 0.6; } 
-        100% { opacity: 1; transform: scale(0.95); } 
-    }
-    .animate-pulse { animation: pulse-red 2s infinite; }
-
-    /* --- Hero Carousel --- */
-    #heroCarousel {
-        height: 60vh;
-        min-height: 400px;
-        background-color: #000;
-        position: relative;
-        overflow: hidden;
-    }
-    .carousel-inner, .carousel-item { height: 100%; }
-    .hero-carousel-item { height: 60vh; min-height: 450px; }
-    .hero-bg-layer {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background-size: cover; background-position: center; background-repeat: no-repeat;
-        opacity: 0.7; z-index: 1;
-    }
-    .hero-subtitle {
-        font-size: 1.5rem !important;      
-        font-weight: 700;                  
-        color: #ffffff !important;         
-        text-shadow: 2px 2px 5px rgba(0,0,0,0.8); 
-        margin-top: 15px;
-    }
-    .carousel-caption { z-index: 10; bottom: 25%; }
-
-    /* --- Section Titles & Layouts --- */
-    .main-wrapper {
-        width: 100% !important;
-        max-width: 100vw;
-        margin: 0 auto !important;
-        padding-left: 15px; 
-        padding-right: 15px;
-        box-sizing: border-box; 
-    }
-    .section-title { 
-        color: var(--brand-red); font-weight: 900; 
-        margin: 60px 0 40px; text-align: center; letter-spacing: 2px; 
-    }
-    .section-title::after { 
-        content: ''; display: block; width: 50px; height: 3px; 
-        background: var(--brand-red); margin: 15px auto; 
-    }
-
-    /* --- Cards & Gallery --- */
-    .service-card {
-        background: white; border-radius: 12px; overflow: hidden; height: 100%;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.3s ease;
-        border-bottom: 5px solid transparent; cursor: pointer; text-decoration: none; 
-        color: inherit; display: block; border: none !important;
-    }
-    .service-card:hover { 
-        transform: translateY(-8px); 
-        border-bottom: 5px solid var(--brand-red); 
-        box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
-    }
-    .album-card { background: white; border: 1px solid #e0e0e0; transition: all 0.3s ease; height: 100%; cursor: pointer; border-radius: 12px; overflow: hidden; }
-    .album-img-wrapper { position: relative; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; }
-    .album-img { width: 100%; height: 180px; object-fit: cover; transition: transform 0.5s ease; }
-    .photo-tag { position: absolute; top: 10px; left: 10px; background: rgba(0, 0, 0, 0.65); color: #fff; padding: 3px 10px; font-size: 12px; font-weight: 500; border-radius: 6px; z-index: 5; backdrop-filter: blur(4px); }
-
-    /* --- Lightbox --- */
-    #imgLightbox {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.95); display: none;
-        align-items: center; justify-content: center; z-index: 10000;
-    }
-    .lightbox-content {
-        display: flex; width: 95vw; height: 90vh; background: #111; border-radius: 15px; overflow: hidden; position: relative;
-    }
-    .lightbox-image-side { flex: 1; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; position: relative; }
-    .lightbox-image-side img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .lightbox-info-side { flex: 0 0 450px; height: 100%; padding: 50px 35px; background: #1a1a1a; color: white; overflow-y: auto; border-left: 1px solid rgba(255,255,255,0.1); }
-    .lightbox-info-side h2 { font-size: 1.8rem !important; font-weight: 700; color: #ff4d4d; margin-bottom: 15px; }
-    .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); color: white; border: none; width: 60px; height: 60px; cursor: pointer; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; }
-
-    /* --- 關鍵修正：解決 XX 亂跳與樣式 --- */
-    .modal-content { max-height: 80vh; overflow-y: auto; position: relative; }
-    
-    /* 修正 Bootstrap Modal 內的關閉鈕 (絕對定位在視窗內，不再跟著螢幕跑) */
-    .modal-header .btn-close {
-        position: absolute !important;
-        top: 15px;
-        right: 15px;
-        z-index: 1060;
-        background-color: rgba(128, 128, 128, 0.5) !important;
-        opacity: 1 !important;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        margin: 0 !important;
-        background-image: none !important; /* 清除預設圖示改用偽元素畫 X */
-        display: flex; align-items: center; justify-content: center;
-    }
-    .btn-close::before, .btn-close::after {
-        content: ''; position: absolute; width: 2px; height: 20px; background-color: #000;
-    }
-    .btn-close::before { transform: rotate(45deg); }
-    .btn-close::after { transform: rotate(-45deg); }
-
-    /* 手機版專屬修正 */
-    @media (max-width: 768px) {
-        #loading-screen { padding-top: 22vh !important; }
-        .lightbox-content { flex-direction: column !important; width: 100vw !important; height: auto !important; min-height: 100vh !important; border-radius: 0 !important; }
-        .lightbox-image-side { height: 45vh !important; }
-        .lightbox-info-side { flex: none !important; width: 100% !important; padding: 30px 20px 100px !important; }
-    }
-
-    /* --- 進場 LOGO 關鍵動畫 --- */
     #loading-screen .logo-box svg {
-        transform: scale(3) translate(30px, 0px); 
-        opacity: 0;
+        width: 220px !important; height: auto !important;
+        transform-origin: 30% 40%; 
         animation: masterEntrance 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
     }
     #tent-part {
         opacity: 0; transform: scale(0);
         animation: tentBounce 0.6s 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
+    .brand-name-loading { 
+        font-size: 24px; font-weight: 900; color: #000; margin-top: 15px;
+        letter-spacing: 4px; opacity: 0; animation: fadeIn 1s 1.5s forwards; 
+        text-align: center; width: 100%;
+    }
+
+    /* --- 4. Hero Carousel --- */
+    #heroCarousel {
+        height: 60vh; min-height: 400px; background-color: #000;
+        position: relative; overflow: hidden;
+    }
+    .carousel-inner, .carousel-item, .hero-carousel-item { height: 100%; min-height: 400px; }
+    .hero-bg-layer {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background-size: cover; background-position: center; opacity: 0.7; z-index: 1;
+    }
+    .hero-subtitle {
+        font-size: 1.5rem !important; font-weight: 700; color: #ffffff !important;         
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin-top: 15px;
+    }
+    .carousel-caption-custom {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        text-align: center; z-index: 10; width: 80%;
+    }
+
+    /* --- 5. Cards & Section Layouts --- */
+    .section-title { 
+        color: var(--brand-red); font-weight: 900; margin: 60px 0 40px; 
+        text-align: center; letter-spacing: 2px; 
+    }
+    .section-title::after { 
+        content: ''; display: block; width: 50px; height: 3px; 
+        background: var(--brand-red); margin: 15px auto; 
+    }
+
+    /* 統一卡片基礎樣式 */
+    .service-card, .album-card {
+        background: white; border-radius: 12px; overflow: hidden;
+        transition: all 0.3s ease; border: 1px solid #e0e0e0;
+        text-decoration: none; color: inherit; display: block;
+    }
+    .service-card:hover, .album-card:hover { 
+        transform: translateY(-8px); 
+        box-shadow: 0 10px 25px rgba(114, 47, 55, 0.2); 
+        border-color: var(--brand-red); 
+    }
+
+    .service-card img { width: 100%; height: 220px; object-fit: cover; }
+    .service-card-body { padding: 25px; text-align: center; }
+
+    /* Stack Cards (疊加卡片) */
+    .stack-container { display: flex; flex-direction: column; width: 100%; }
+    .stack-card-item { margin-bottom: -15px; transition: 0.3s ease; position: relative; z-index: 1; }
+    .stack-card-item:hover { transform: translateY(-25px); z-index: 10; }
+    .custom-stack-card {
+        display: flex; background: white; border-radius: 12px; height: 120px;
+        border: 1px solid #eee; overflow: hidden;
+    }
+    
+    .card { background-color: var(--card-bg) !important; border: none !important; }
+
+    /* --- 6. Gallery & Lightbox --- */
+    .gallery-container {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px; padding: 20px; width: 100%;
+    }
+    .album-img-wrapper { position: relative; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; }
+    .album-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .album-img-wrapper:hover .album-img { transform: scale(1.1); }
+
+    /* Lightbox 燈箱系統 */
+    #imgLightbox {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.95); display: none;
+        align-items: center; justify-content: center; z-index: 10000;
+    }
+    .lightbox-content {
+        display: flex; width: 95vw; height: 90vh; background: #111;
+        border-radius: 15px; overflow: hidden; position: relative;
+    }
+    .lightbox-image-side { flex: 1; display: flex; align-items: center; justify-content: center; background: #000; }
+    .lightbox-image-side img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .lightbox-info-side { 
+        flex: 0 0 400px; padding: 40px 30px; background: #1a1a1a; 
+        color: white; overflow-y: auto; border-left: 1px solid rgba(255,255,255,0.1); 
+    }
+
+    /* --- 7. UI Components (X 關閉按鈕修正) --- */
+    .btn-close, .modal-header .btn-close {
+        position: fixed !important; top: 20px !important; right: 25px !important;
+        z-index: 10001 !important; background-color: rgba(255, 255, 255, 0.8) !important; 
+        border-radius: 50%; width: 44px; height: 44px; display: flex !important;
+        align-items: center; justify-content: center; transition: background 0.2s;
+        background-image: none !important; opacity: 1 !important;
+    }
+    .btn-close::before, .btn-close::after {
+        content: ''; position: absolute; width: 2px; height: 20px; background-color: #000; 
+    }
+    .btn-close::before { transform: rotate(45deg); }
+    .btn-close::after { transform: rotate(-45deg); }
+
+    /* --- 8. Keyframes --- */
     @keyframes masterEntrance {
-        0% { opacity: 0; transform: scale(4) translate(50px, 10px); }
+        0% { opacity: 0; transform: scale(5) translate(60px, 15px); }
         100% { opacity: 1; transform: scale(1) translate(0, 0); }
     }
     @keyframes tentBounce {
-        0% { opacity: 0; transform: scale(0) rotate(-15deg); }
-        100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        0% { opacity: 0; transform: scale(0) translateY(20px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* --- 9. RWD 手機版適配 --- */
+    @media (max-width: 991px) {
+        .lightbox-info-side { flex: 0 0 300px; }
+    }
+
+    @media (max-width: 768px) {
+        #loading-screen { padding-top: 22vh; }
+        .lightbox-content { flex-direction: column; width: 100vw; height: 100vh; border-radius: 0; }
+        .lightbox-image-side { height: 40vh; }
+        .lightbox-info-side { flex: none; width: 100%; padding-bottom: 80px; }
+        
+        .btn-close, .modal-header .btn-close { top: 15px !important; right: 15px !important; width: 36px; height: 36px; }
+        
+        /* 讓手機版圖片能顯示更多 */
+        .gallery-container { grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
     }
 </style>
-
-<script>
-// --- 1. 注入數據 (包含氣球案例) ---
-const balloonUrls = ["https://i.postimg.cc/PrJxfRxs/1965927-0.jpg", "https://i.postimg.cc/NfFMGzMv/1981332-0.jpg", "https://i.postimg.cc/QxCtNyth/1981333-0.jpg", "https://i.postimg.cc/L68qYsxN/1981334-0.jpg", "https://i.postimg.cc/kXgV65Tw/1981335.jpg", "https://i.postimg.cc/RVZ360gd/1981336.jpg", "https://i.postimg.cc/bNwGDvmm/1981337.jpg", "https://i.postimg.cc/J4zyDhpF/1981338.jpg", "https://i.postimg.cc/J4zyDhpg/1981339.jpg", "https://i.postimg.cc/YqC4GSdZ/1981340.jpg"];
-balloonUrls.forEach((url, index) => {
-    const id = `ball_item_${index}`;
-    photoLibrary[id] = { tag: "活動佈置", title: `佈置成品 ${index + 1}`, loc: "精選案例", images: [url], desc: "八毅硬體結構精選佈置作品。" };
-    photos_Decor.push(id);
-});
-
-// --- 2. 卡片相簿連動系統 ---
-function openAlbumTab(tabId) {
-    const albumModalEl = document.getElementById('albumModal');
-    let albumModal = bootstrap.Modal.getInstance(albumModalEl);
-    if (!albumModal) {
-        albumModal = new bootstrap.Modal(albumModalEl);
-    }
-    albumModal.show();
-
-    albumModalEl.addEventListener('shown.bs.modal', function () {
-        const tabEl = document.getElementById(tabId);
-        if (tabEl) {
-            const tab = new bootstrap.Tab(tabEl);
-            tab.show();
-        }
-    }, { once: true }); 
-}
-
-// --- 3. 相簿載入功能 ---
-function loadGallery(containerId, list) {
-    const rowContainer = document.querySelector(`#${containerId} .row`);
-    if (!rowContainer) return;
-    rowContainer.innerHTML = list.map(id => {
-        const item = photoLibrary[id];
-        return `
-            <div class="col-md-4 col-lg-3 mb-4" onclick="openProjectGallery('${id}')" style="cursor:pointer;">
-                <div class="album-card">
-                    <div class="album-img-wrapper">
-                        <span class="photo-tag">${item.tag}</span>
-                        <img src="${item.images[0]}" class="album-img" loading="lazy">
-                    </div>
-                </div>
-            </div>`;
-    }).join('');
-}
-
-// --- 4. 燈箱功能 ---
-let currentProject = null;
-let currentImgIdx = 0;
-
-function openProjectGallery(projectId) {
-    currentProject = photoLibrary[projectId];
-    if (!currentProject) return;
-    currentImgIdx = 0;
-    updateLightbox();
-}
-
-function updateLightbox() {
-    const lb = document.getElementById('imgLightbox');
-    if(!lb || !currentProject) return; 
-    const info = currentProject;
-    const formattedDesc = info.desc.replace(/\n/g, '<br>');
-    lb.innerHTML = `
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-            <button class="btn-close" style="position:absolute; top:20px; right:20px; z-index:10010;" onclick="closeLightbox()"></button>
-            <div class="lightbox-image-side">
-                <img src="${info.images[currentImgIdx]}" id="target-img">
-                ${info.images.length > 1 ? `
-                    <div class="nav-controls">
-                        <button class="nav-btn prev" onclick="changeImage(-1)">❮</button>
-                        <button class="nav-btn next" onclick="changeImage(1)">❯</button>
-                    </div>
-                    <div class="img-counter"><span class="current">${currentImgIdx + 1}</span> / <span class="total">${info.images.length}</span></div>
-                ` : ''}
-            </div>
-            <div class="lightbox-info-side">
-                <h2 style="color: #BA2D30;">${info.title}</h2>
-                <p><i class="bi bi-geo-alt-fill me-1"></i>${info.loc}</p>
-                <hr>
-                <div class="info-body"><p>${formattedDesc}</p></div>
-                <button class="btn btn-outline-light w-100 mt-4" onclick="closeLightbox()">關閉</button>
-            </div>
-        </div>`;
-    lb.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-
-function changeImage(step) {
-    if(!currentProject) return;
-    currentImgIdx = (currentImgIdx + step + currentProject.images.length) % currentProject.images.length;
-    document.getElementById('target-img').src = currentProject.images[currentImgIdx];
-    const counter = document.querySelector('.img-counter .current');
-    if(counter) counter.innerText = currentImgIdx + 1;
-}
-
-function closeLightbox() {  
-    document.getElementById('imgLightbox').style.display = 'none';  
-    document.body.style.overflow = 'auto';  
-}
-
-// --- 5. 頁面初始化與音效邏輯 ---
-window.addEventListener('load', function() {
-    // 執行相簿載入
-    try {
-        loadGallery('gallery-1', photos_Tables);
-        loadGallery('gallery-2', photos_Truss);
-        loadGallery('gallery-3', photos_Tent);
-        loadGallery('gallery-4', photos_Stage);
-        loadGallery('gallery-5', photos_Decor);
-    } catch (e) { console.warn("相簿載入異常:", e); }
-
-    // 載入畫面消失邏輯
-    const loader = document.getElementById('loading-screen');
-    if (loader) {
-        setTimeout(() => {
-            loader.style.opacity = '0'; 
-            setTimeout(() => {
-                loader.style.display = 'none'; 
-                loader.style.zIndex = '-1';
-                document.body.classList.remove('is-loading');
-                document.body.style.overflow = 'auto'; 
-            }, 850); 
-        }, 2500); 
-    }
-
-    // 音效播放
-    try {
-        const entranceSound = new Audio('低沉穩重的進場音.mp3'); 
-        const popSound = new Audio('俏皮彈出音.mp3');
-        entranceSound.play();
-        setTimeout(() => { popSound.play(); }, 1200);
-    } catch(e) {}
-});
-</script>
-本次整理重點：
-合併了兩段 window.load：原本代碼中有兩個 load 事件，我將它們統一整理到最下方的初始化區塊中，確保音效播放、相簿載入、載入畫面消失的順序正確，不再發生重複或衝突。
-
-保留氣球數據注入：最上方的 balloonUrls.forEach 邏輯完整保留。
-
-解決 XX 亂跳：針對 .btn-close 移除 fixed 定位，改用 absolute 並確保其 z-index 高於內容物，樣式統一為「半透明圓圈 + 純黑 X」。
-
-修正 Tab 切換：保留了你最新的 openAlbumTab 邏輯，確保點擊服務項目後能正確開啟對應的分頁。
-
-這份代碼現在是功能最完整的版本，請直接複製使用。有任何細節需要再微調隨時跟我說！
 </head>
     
 <body class="is-loading">
@@ -646,13 +477,13 @@ window.addEventListener('load', function() {
 <div class="modal fade" id="albumModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" style="position: fixed; top: 25px; right: 25px; z-index: 1060;"></button>
+            
             <div class="modal-header">
                 <h5 class="modal-title">產品相簿</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
             <div class="modal-body pt-0">
-                
                 <ul class="nav nav-tabs d-none" id="albumTabs" role="tablist" style="display: none !important;">
                     <li class="nav-item"><button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#gallery-1" type="button" role="tab" aria-selected="true">桌椅</button></li>
                     <li class="nav-item"><button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#gallery-2" type="button" role="tab" aria-selected="false">Truss</button></li>
@@ -673,14 +504,13 @@ window.addEventListener('load', function() {
     </div>
 </div>
 
-        
-            
-</div> <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="position: fixed; top: 25px; right: 25px; z-index: 1060;"></button>
+            
             <div class="modal-header">
                 <h5 class="modal-title fw-bold" id="prod-modal-title">產品名稱</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -699,7 +529,7 @@ window.addEventListener('load', function() {
             </div>
         </div>
     </div>
-</div> 
+</div>
     
 <div id="imgLightbox" class="lightbox-overlay" onclick="closeLightbox()" style="display:none;"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -709,8 +539,8 @@ window.addEventListener('load', function() {
     // 1. 定義所有產品資料
 const productLibrary = {
     'chairs': { title: '桌椅租賃', tab: 'tab-1', items: [
-        { name: '會議桌', img: 'https://i.postimg.cc/fLFnWQCg/109909_0.jpg', specs: '尺寸：180x60x75cm<br>材質：PE桌面/鋼製腳架' },
-        { name: '黑金剛摺疊椅', img: 'https://i.postimg.cc/kGFc1xVC/日坊_林口竹林寺_黑金剛_進場.jpg', specs: '尺寸：45x45x80cm<br>材質：強化塑鋼/黑鐵烤漆' },
+        { name: '會議桌', img: 'https://i.postimg.cc/fLFnWQCg/109909_0.jpg', specs: '尺寸：W185xD60xH76.5cm<br>材質：PE桌面/鋼製腳架' },
+        { name: '黑金剛摺疊椅', img: 'https://i.postimg.cc/kGFc1xVC/日坊_林口竹林寺_黑金剛_進場.jpg', specs: '尺寸：W43.8xD50xH80cm<br>材質：PE/鋼製腳架' },
         { name: '點心椅', img: 'https://i.postimg.cc/nzfByXft/黎國際_三重水樣啵啵_點心椅進場.jpg', specs: '尺寸：W33.3x33.3xH46.5cm<br>材質：PE' }
     ]},
     'truss': { title: 'Truss 結構', tab: 'tab-2', items: [
@@ -720,7 +550,7 @@ const productLibrary = {
         { name: '背板Truss', img: 'https://i.postimg.cc/nc22qGbp/鑫創土城_Truss_進場.jpg', specs: '規格說明：拍照背板/舞台背景專用。' }
     ]},
     'tents': { title: '帳篷設備', tab: 'tab-3', items: [
-        { name: '圓拱帳', img: 'https://i.postimg.cc/pdsM7FFj/109898_0.jpg', specs: '規格：12呎、15呎、20呎、24呎、30呎。頂棚顏色:紅白、白。' },
+        { name: '圓拱帳', img: 'https://i.postimg.cc/pdsM7FFj/109898_0.jpg', specs: '規格：12呎、15呎、20呎、24呎、30呎  以上規格x30即為cm<br> 深度統一為300cm 高度可調。頂棚顏色:紅白、白。' },
         { name: '宮廷帳', img: 'https://i.postimg.cc/TwbQm8f5/永昌_新竹中油_3米白_進場2.jpg', specs: '規格：W600cm*D600cm 高度可調。頂棚顏色:紅白、白、透明。' },
         { name: '屋型帳', img: 'https://i.postimg.cc/76r0F5rH/賢哥_萬華金義宮_3米6紅進場.jpg', specs: '規格：W600cm*D300cm 高度可調。頂棚顏色:紅白、白、透明。' },
         { name: '阿里山帳', img: 'https://i.postimg.cc/zfX9nGPQ/賢哥南港高中_3米紅白_進場4.jpg', specs: '規格：W300cm*D300cm 高度可調。頂棚顏色:紅白、白。' }
@@ -732,10 +562,10 @@ const productLibrary = {
         { name: '三步梯', img: 'https://i.postimg.cc/3J58dMms/永昌_橫山大山背_圓拱帳_舞台進場.jpg', specs: '規格：W60cm*D90*H75。' }
     ]},
     'others': { title: '活動周邊配件', tab: 'tab-5', items: [
-        { name: '紅絨柱', img: 'https://i.postimg.cc/5t6s4Yr5/法克市府轉運站_紅龍進場.jpg', specs: '規格：金色/銀色立柱。' },
+        { name: '紅絨柱', img: 'https://i.postimg.cc/5t6s4Yr5/法克市府轉運站_紅龍進場.jpg', specs: '規格：銀色立柱。' },
         { name: '三角錐', img: 'https://i.postimg.cc/sxhFvH0X/109918_0.jpg', specs: '規格：高可見度反光條。' },
         { name: '指示立牌', img: 'https://via.placeholder.com/300', specs: '規格：A3/A4 規格。' },
-        { name: '垃圾架', img: 'https://i.postimg.cc/d1rGJVsb/汎馬_中和國小_垃圾架_進場.jpg', specs: '規格：工業級支架。' },
+        { name: '垃圾架', img: 'https://i.postimg.cc/d1rGJVsb/汎馬_中和國小_垃圾架_進場.jpg', specs: '規格：鐵料支架。' },
         { name: '工業立扇', img: 'https://via.placeholder.com/300', specs: '規格：大風量，三段風速。' }
     ]}
 };
@@ -802,14 +632,14 @@ let photos_Tables = [
 
 let photos_Truss = [
     "3rs5P7dS", "XYgRGCxL", "x1jsZFy6", "5yMgSP24", "fTgGBXgN", "JzdQ27hr", "Nfs7G29h", 
-    "fLZJ1qm9",
+    "fLZJ1qm9", "c1XrZPWm",
     "9XsmprmS"  // 新增：內壢高中 Truss
     // 已從此處移出：0jyxYx50 (育達高中)
 ];
 
 let photos_Tent = [
     "P5dcjqhX", "RhzdLPZN", "VL8ZqNSy", "Kv2pPY16", "L6WTrsVV", "MKpVJkNW", "qM1cNBy1", "76r0F5rH", "PJtZq0qV", "YqCYBcZG", "NMmRQjGX", "0jJD2GYQ", "dtjpqG5F", "3J58dMms", 
-    "nr6Shx0S", "fbfb7Td9", "g0f2PShz",
+    "nr6Shx0S", "fbfb7Td9", "g0f2PShz", "kgXrChnT",
     "0jyxYx50", // 成功移入：育達高中 (原在 Truss)
     "Y23YP2XZ", // 成功對調：大都會公園 (原在 Tables，移入 Tent)
     "TYHPBCJp", // 新增：關西東風會館 圓拱帳
@@ -1228,10 +1058,24 @@ const photoLibrary = {
         loc: "桃園市龍潭區",
         images: ["https://i.postimg.cc/YqjXpCQS/long-tan-di-wang-zhang.jpg"],
         desc: "『從國門走到家門，我們對品質的堅持始終如一。』\n\n龍潭，這片坐落在桃園台地南緣的土地，在地理上就像一個天然的「轉運漏斗」。從海拔兩百公尺的台地俯瞰，這裡不僅是國道三號的交通咽喉，更是山風與季風交會的頂端。在這種開闊的地理節點，工程面臨的最大挑戰不是華麗的裝飾，而是「與風共存」的穩定性。\n\n今天在龍潭的新建場域，現場沒有紅毯的點綴，也沒有絢爛的舞台燈光，只有最純粹的結構美學。我們進場配置了連排帝王帳作為核心，並交錯搭建 3米與 6米阿里山帳。這不僅僅是遮陽遮雨的空間，更是對這片土地的一種後勤應援。\n\n面對龍潭台地陣風的考驗，我們在每一處支點都精準落下了水泥配重塊與八毅專屬砂包。對我們來說，即便沒有舞台，腳下這片新鋪設的植草磚與柏油路面，就是最真實的展演場。從機場三航廈的國家級上樑，到龍潭家門口的交通建設，八毅團隊用每一條拉緊的防風繩，守護著連結家鄉的每一哩路。"
-    }
+    },
+    "c1XrZPWm": {
+    "tag": "桃園皇家薇庭進場",
+    "title": "Truss 結構與場景佈置",
+    "loc": "桃園市桃園區",
+    "images": ["https://i.postimg.cc/c1XrZPWm/cj0yc-Wgzb2dta3Vv-Y2Rv-Jn-M9an-A3Jn-Q9ZCZ1PTFqb2Rx-OTM2Yz-Rk-Zz-Ama-T0w.jpg"],
+    "desc": "『燈燈燈燈～～～～～燈燈燈燈～～～～～』\n\n這首旋律響起，大家腦海中出現的是哪首歌？以前佩服 PTT 大神能靠音符找歌，今天在『皇家薇庭婚宴會館』進場時，這段旋律在我們腦海中特別清晰。這裡坐落於桃園虎頭山腳下，歐式建築與自然綠意交織，場域本身就帶著濃厚的祝福氣息。\n\n在室內高端婚宴空間作業，八毅團隊收起工程的粗獷，換上最細膩的職人手感。在架設每一組 Truss 與配置硬體時，我們極度注重地面的保護與場域完整，確保在不留任何施工痕跡的前提下，用最嚴謹的態度守護這份隆重的幸福。對我們而言，結構的穩度與對場域的尊重，是我們對這場盛事最好的致意。\n\n特別感謝 #鑫創團隊 的合作引薦，讓八毅工程能在這個優雅的殿堂盡一份心力。未來，我們也期待能繼續在充滿喜悅的環境裡，搭建更多精彩的瞬間。最後給個提示：這是一首關於『執子之手』的經典進行曲喔！🎵👰‍♀️🤵‍♂️\n\n#鑫創 #八毅工程 #皇家薇庭 #婚宴佈置 #Truss架設 #活動硬體 #職人細節 #地面防護 #場域守護 #桃園活動 #結構美學"
+    },
+    "kgXrChnT": {
+    "tag": "台北科教館進場",
+    "title": "科教館連排 3米與 6米紅白帳工程",
+    "loc": "台北市士林區",
+    "images": ["https://i.postimg.cc/kgXrChnT/hui-feng-he-chang-tai-bei-ke-jiao-guan-3mi-bai-jin-chang.jpg"],
+    "desc": "『承載童年記憶，跨越時代鴻溝。』\n\n對許多台北人來說，科教館與天文館不僅是建築，更是兒時夢想的起點。幾年前，我曾在這裡參與天文館的防水工程，在那段與氣候博弈、持續近兩年的日子裡，我看著館舍在手中完工，那份成就感至今難以言喻。\n\n近日，我又回到了這片熟悉的區域。這一次，我用專業代替畫筆，在曾經的記憶花園裡，撐起一座座穩固的遮蔽空間。面對科教館周邊強勁的陣風，我們配置了連排的 3米與 6米紅白帳，並在每一處細節精準施作，確保帳篷在風壓下依然紋絲不動。這種踏實的安全感，是我對這片土地最真誠的致敬，也是我們對場域防護不變的執著。\n\n真的很感謝有這些機會，讓長大後的我能全力以赴，用現在的專業守護當年那個仰望星空的夢想。特別感謝 #匯豐合唱 團隊的信任與引薦，讓八毅工程能參與這場關於記憶與新生的盛事。\n\n#匯豐合唱 #八毅工程 #台北科教館 #天文館 #活動帳篷 #3米帳 #6米帳 #活動硬體 #職人精神 #場域守護 #士林活動 #結構安全"
+    }    
 };
     
-// --- 1. 注入數據 (包含氣球案例) ---
+// 注入佈置氣球案例
 const balloonUrls = ["https://i.postimg.cc/PrJxfRxs/1965927-0.jpg", "https://i.postimg.cc/NfFMGzMv/1981332-0.jpg", "https://i.postimg.cc/QxCtNyth/1981333-0.jpg", "https://i.postimg.cc/L68qYsxN/1981334-0.jpg", "https://i.postimg.cc/kXgV65Tw/1981335.jpg", "https://i.postimg.cc/RVZ360gd/1981336.jpg", "https://i.postimg.cc/bNwGDvmm/1981337.jpg", "https://i.postimg.cc/J4zyDhpF/1981338.jpg", "https://i.postimg.cc/J4zyDhpg/1981339.jpg", "https://i.postimg.cc/YqC4GSdZ/1981340.jpg"];
 balloonUrls.forEach((url, index) => {
     const id = `ball_item_${index}`;
@@ -1239,7 +1083,8 @@ balloonUrls.forEach((url, index) => {
     photos_Decor.push(id);
 });
 
-// --- 2. 卡片相簿連動系統 ---
+
+// --- 卡片相簿連動系統 ---
 function openAlbumTab(tabId) {
     const albumModalEl = document.getElementById('albumModal');
     let albumModal = bootstrap.Modal.getInstance(albumModalEl);
@@ -1248,6 +1093,7 @@ function openAlbumTab(tabId) {
     }
     albumModal.show();
 
+    // 監聽 Modal 開啟完成後，再切換 Tab
     albumModalEl.addEventListener('shown.bs.modal', function () {
         const tabEl = document.getElementById(tabId);
         if (tabEl) {
@@ -1256,11 +1102,17 @@ function openAlbumTab(tabId) {
         }
     }, { once: true }); 
 }
+// (注意：就是這麼短，不要再留舊的 setTimeout 在下面了)
+// --- 相簿與燈箱功能 ---
+    
 
-// --- 3. 相簿載入功能 ---
 function loadGallery(containerId, list) {
+    // 找到該 tab 下面的 .row
     const rowContainer = document.querySelector(`#${containerId} .row`);
+    
     if (!rowContainer) return;
+
+    // 只更新 row 裡面的 HTML，保留 row 的排版能力
     rowContainer.innerHTML = list.map(id => {
         const item = photoLibrary[id];
         return `
@@ -1275,25 +1127,20 @@ function loadGallery(containerId, list) {
     }).join('');
 }
 
-// --- 4. 燈箱功能 ---
-let currentProject = null;
-let currentImgIdx = 0;
-
 function openProjectGallery(projectId) {
-    currentProject = photoLibrary[projectId];
-    if (!currentProject) return;
-    currentImgIdx = 0;
-    updateLightbox();
-}
+        currentProject = photoLibrary[projectId];
+        if (!currentProject) return;
+        currentImgIdx = 0;
+        updateLightbox();
+    }
 
-function updateLightbox() {
+    function updateLightbox() {
     const lb = document.getElementById('imgLightbox');
-    if(!lb || !currentProject) return; 
+    if(!lb || !currentProject) return; // 加入防呆
     const info = currentProject;
     const formattedDesc = info.desc.replace(/\n/g, '<br>');
     lb.innerHTML = `
         <div class="lightbox-content" onclick="event.stopPropagation()">
-            <button class="btn-close" style="position:absolute; top:20px; right:20px; z-index:10010;" onclick="closeLightbox()"></button>
             <div class="lightbox-image-side">
                 <img src="${info.images[currentImgIdx]}" id="target-img">
                 ${info.images.length > 1 ? `
@@ -1304,6 +1151,7 @@ function updateLightbox() {
                     <div class="img-counter"><span class="current">${currentImgIdx + 1}</span> / <span class="total">${info.images.length}</span></div>
                 ` : ''}
             </div>
+
             <div class="lightbox-info-side">
                 <h2 style="color: #BA2D30;">${info.title}</h2>
                 <p><i class="bi bi-geo-alt-fill me-1"></i>${info.loc}</p>
@@ -1316,31 +1164,31 @@ function updateLightbox() {
     document.body.style.overflow = 'hidden';
 }
 
-function changeImage(step) {
-    if(!currentProject) return;
-    currentImgIdx = (currentImgIdx + step + currentProject.images.length) % currentProject.images.length;
-    document.getElementById('target-img').src = currentProject.images[currentImgIdx];
-    const counter = document.querySelector('.img-counter .current');
-    if(counter) counter.innerText = currentImgIdx + 1;
-}
+    function changeImage(step) {
+        currentImgIdx = (currentImgIdx + step + currentProject.images.length) % currentProject.images.length;
+        document.getElementById('target-img').src = currentProject.images[currentImgIdx];
+        const counter = document.querySelector('.img-counter .current');
+        if(counter) counter.innerText = currentImgIdx + 1;
+    }
 
-function closeLightbox() {  
-    document.getElementById('imgLightbox').style.display = 'none';  
-    document.body.style.overflow = 'auto';  
-}
+    function closeLightbox() {  
+        document.getElementById('imgLightbox').style.display = 'none';  
+        document.body.style.overflow = 'auto';  
+    }
 
-// --- 5. 頁面初始化與音效邏輯 ---
+// --- 頁面初始化 ---
 window.addEventListener('load', function() {
-    // 執行相簿載入
     try {
         loadGallery('gallery-1', photos_Tables);
         loadGallery('gallery-2', photos_Truss);
         loadGallery('gallery-3', photos_Tent);
         loadGallery('gallery-4', photos_Stage);
         loadGallery('gallery-5', photos_Decor);
-    } catch (e) { console.warn("相簿載入異常:", e); }
+        console.log("✅ 相簿載入完成");
+    } catch (e) {
+        console.warn("⚠️ 相簿加載異常:", e);
+    }
 
-    // 載入畫面消失邏輯
     const loader = document.getElementById('loading-screen');
     if (loader) {
         setTimeout(() => {
@@ -1353,15 +1201,20 @@ window.addEventListener('load', function() {
             }, 850); 
         }, 2500); 
     }
+    // 在頁面載入時執行
+window.addEventListener('load', function() {
+    const entranceSound = new Audio('低沉穩重的進場音.mp3'); 
+    const popSound = new Audio('俏皮彈出音.mp3');
 
-    // 音效播放
-    try {
-        const entranceSound = new Audio('低沉穩重的進場音.mp3'); 
-        const popSound = new Audio('俏皮彈出音.mp3');
-        entranceSound.play();
-        setTimeout(() => { popSound.play(); }, 1200);
-    } catch(e) {}
+    // 播放第一段（進場）
+    entranceSound.play();
+
+    // 延遲播放第二段（帳篷彈出）
+    setTimeout(() => {
+        popSound.play();
+    }, 1200); // 對應 CSS 的延遲時間
 });
-</script>
+});
+    </script>
    </body>
 </html>
