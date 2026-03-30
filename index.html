@@ -103,7 +103,7 @@
     #loading-screen {
         position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
         background: #ffffff; z-index: 9999; display: flex;
-        flex-direction: column; justify-content: flex-start; align-items: center;       
+        flex-direction: column; justify-content: flex-start; align-items: center;        
         padding-top: 30vh; transition: opacity 0.8s ease-out;
     }
     .logo-box {
@@ -134,9 +134,18 @@
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         background-size: cover; background-position: center; opacity: 0.7; z-index: 1;
     }
+    
+    /* 修正白字不清楚問題 */
     .hero-subtitle {
-        font-size: 1.5rem !important; font-weight: 700; color: #ffffff !important;         
-        text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin-top: 15px;
+        font-size: 1.5rem !important; 
+        font-weight: 700; 
+        color: #ffffff !important;          
+        background: rgba(0, 0, 0, 0.4); /* 加入半透明黑底 */
+        padding: 8px 20px;
+        border-radius: 8px;
+        display: inline-block;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.8); 
+        margin-top: 15px;
     }
     .carousel-caption-custom {
         position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -153,7 +162,6 @@
         background: var(--brand-red); margin: 15px auto; 
     }
 
-    /* 統一卡片基礎樣式 */
     .service-card, .album-card {
         background: white; border-radius: 12px; overflow: hidden;
         transition: all 0.3s ease; border: 1px solid #e0e0e0;
@@ -168,7 +176,6 @@
     .service-card img { width: 100%; height: 220px; object-fit: cover; }
     .service-card-body { padding: 25px; text-align: center; }
 
-    /* Stack Cards (疊加卡片) */
     .stack-container { display: flex; flex-direction: column; width: 100%; }
     .stack-card-item { margin-bottom: -15px; transition: 0.3s ease; position: relative; z-index: 1; }
     .stack-card-item:hover { transform: translateY(-25px); z-index: 10; }
@@ -188,7 +195,6 @@
     .album-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .album-img-wrapper:hover .album-img { transform: scale(1.1); }
 
-    /* Lightbox 燈箱系統 */
     #imgLightbox {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: rgba(0, 0, 0, 0.95); display: none;
@@ -205,16 +211,45 @@
         color: white; overflow-y: auto; border-left: 1px solid rgba(255,255,255,0.1); 
     }
 
-    /* --- 7. UI Components (X 關閉按鈕修正) --- */
-    .btn-close, .modal-header .btn-close {
-        position: fixed !important; top: 20px !important; right: 25px !important;
-        z-index: 10001 !important; background-color: rgba(255, 255, 255, 0.8) !important; 
-        border-radius: 50%; width: 44px; height: 44px; display: flex !important;
-        align-items: center; justify-content: center; transition: background 0.2s;
-        background-image: none !important; opacity: 1 !important;
+    /* --- 7. UI Components (全面修正按鈕衝突與位移) --- */
+    /* 確保容器具備相對定位 */
+    .modal-content {
+        position: relative !important;
     }
+
+    /* 統一所有關閉按鈕，取消 fixed 改用 absolute 鎖定在彈窗內容區 */
+    .btn-close, .modal-header .btn-close {
+        position: absolute !important; 
+        top: 15px !important; 
+        right: 15px !important;
+        z-index: 1065 !important; /* 確保在所有層級之上 */
+        background-color: rgba(0, 0, 0, 0.5) !important; /* 加深背景防背景圖吃掉 */
+        border: 2px solid #ffffff !important;
+        border-radius: 50% !important; 
+        width: 40px !important; 
+        height: 40px !important; 
+        display: flex !important;
+        align-items: center; 
+        justify-content: center; 
+        transition: all 0.2s;
+        background-image: none !important; /* 移除原本圖示改用 CSS 繪製 */
+        opacity: 1 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .btn-close:hover {
+        transform: scale(1.1);
+        background-color: rgba(0, 0, 0, 0.8) !important;
+    }
+
+    /* 繪製純白 X 圖示 */
     .btn-close::before, .btn-close::after {
-        content: ''; position: absolute; width: 2px; height: 20px; background-color: #000; 
+        content: ''; 
+        position: absolute; 
+        width: 2px; 
+        height: 20px; 
+        background-color: #ffffff !important; 
     }
     .btn-close::before { transform: rotate(45deg); }
     .btn-close::after { transform: rotate(-45deg); }
@@ -241,9 +276,17 @@
         .lightbox-image-side { height: 40vh; }
         .lightbox-info-side { flex: none; width: 100%; padding-bottom: 80px; }
         
-        .btn-close, .modal-header .btn-close { top: 15px !important; right: 15px !important; width: 36px; height: 36px; }
+        /* 手機版 X 按鈕尺寸微調 */
+        .btn-close, .modal-header .btn-close { 
+            top: 10px !important; 
+            right: 10px !important; 
+            width: 32px !important; 
+            height: 32px !important; 
+        }
+        .btn-close::before, .btn-close::after {
+            height: 16px;
+        }
         
-        /* 讓手機版圖片能顯示更多 */
         .gallery-container { grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
     }
 </style>
