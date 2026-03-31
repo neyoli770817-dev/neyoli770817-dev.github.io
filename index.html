@@ -135,13 +135,14 @@
         background-size: cover; background-position: center; opacity: 0.7; z-index: 1;
     }
     
-    /* 這裡針對你提到的標題字做強化，在白背景下也會很清楚 */
+    /* 標題字強化：透過多層陰影與加粗線條，在白底或雜亂底色下都能清晰顯示 */
     .hero-subtitle {
         font-size: 2.2rem !important; 
-        font-weight: 900; 
+        font-weight: 900 !important; 
         color: #ffffff !important;          
-        /* 使用多重陰影確保文字立體感，不管背景多白都看得到 */
-        text-shadow: 0 0 10px rgba(0,0,0,0.8), 2px 2px 5px rgba(0,0,0,0.9);
+        text-shadow: 
+            0 0 12px rgba(0,0,0,0.9), 
+            2px 2px 4px rgba(0,0,0,1);
         margin-top: 15px;
         display: inline-block;
         letter-spacing: 2px;
@@ -150,7 +151,8 @@
     .hero-carousel-item p {
         font-size: 1.1rem;
         color: #fff !important;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        font-weight: 600;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
     }
 
     .carousel-caption-custom {
@@ -227,8 +229,8 @@
         top: 15px !important; 
         right: 15px !important;
         z-index: 1065 !important; 
-        background-color: #000 !important; /* 黑色背景 */
-        border: 2px solid #ffffff !important; /* 白色外框 */
+        background-color: #000 !important; 
+        border: 2px solid #ffffff !important; 
         border-radius: 50% !important; 
         width: 40px !important; 
         height: 40px !important; 
@@ -270,7 +272,11 @@
         .lightbox-image-side { height: 40vh; }
         .lightbox-info-side { flex: none; width: 100%; padding-bottom: 80px; }
         
-        .hero-subtitle { font-size: 1.6rem !important; }
+        /* 手機版標題縮小，避免蓋住畫面，並維持陰影強度 */
+        .hero-subtitle { 
+            font-size: 1.5rem !important; 
+            text-shadow: 0 0 8px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,1);
+        }
 
         .btn-close, .modal-header .btn-close { 
             top: 10px !important; 
