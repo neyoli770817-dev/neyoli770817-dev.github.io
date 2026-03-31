@@ -122,60 +122,63 @@
         text-align: center; width: 100%;
     }
 
-    /* --- 4. Hero Carousel (暴力強化 & 位置調整版) --- */
+    /* --- 4. Hero Carousel (現代感精修版：確保手機版清晰) --- */
     #heroCarousel {
-        height: 60vh; min-height: 400px; background-color: #000;
+        height: 65vh; min-height: 400px; background-color: #000;
         position: relative; overflow: hidden;
     }
-    .carousel-inner, .carousel-item { height: 100%; min-height: 400px; }
+    .carousel-inner, .carousel-item { height: 100%; }
     
     .hero-bg-layer {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         background-size: cover; background-position: center; z-index: 1;
     }
 
-    /* 關鍵：圖片暗化濾鏡 */
+    /* 底部漸層遮罩：讓背景由下往上變暗，文字自然浮現 */
     .hero-bg-layer::after {
         content: '';
         position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.5); /* 50% 黑色遮罩 */
+        bottom: 0; left: 0;
+        width: 100%; height: 65%; 
+        background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
         z-index: 2;
     }
     
-    /* 關鍵：文字定位到中下部 */
     .carousel-caption-custom {
         position: absolute; 
-        bottom: 15%; /* 距離底部 15% */
+        bottom: 12%; 
         left: 50%; 
         transform: translateX(-50%);
         text-align: center; 
         z-index: 10; 
-        width: 90%;
+        width: 85%;
     }
 
-    /* 標題暴力強化 */
+    /* 標題：純淨白字 + 適度陰影 (移除黑色描邊) */
     .carousel-caption-custom h1, 
     .hero-subtitle {
-        font-size: 3.2rem !important; 
-        font-weight: 900 !important; 
+        font-size: 2.8rem !important; 
+        font-weight: 800 !important; 
         color: #ffffff !important; 
-        -webkit-text-stroke: 2px #000000;
-        text-shadow: 
-            4px 4px 0px #000,
-            0px 0px 20px rgba(0,0,0,0.8);
-        letter-spacing: 3px;
-        margin-bottom: 10px;
+        text-shadow: 2px 2px 15px rgba(0,0,0,0.6);
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+        -webkit-text-stroke: 0 !important; 
     }
     
-    /* 副標題同步強化 */
+    /* 副標題：加上半透明磨砂玻璃背景 */
     .hero-desc {
-        font-size: 1.4rem !important;
+        display: inline-block;
+        font-size: 1.1rem !important;
         color: #ffffff !important;
-        font-weight: 800 !important;
-        -webkit-text-stroke: 1px #000000 !important;
-        text-shadow: 2px 2px 5px rgba(0,0,0,1) !important;
+        font-weight: 400 !important;
+        background: rgba(0,0,0,0.45);
+        padding: 6px 16px;
+        border-radius: 6px;
+        letter-spacing: 1px;
+        backdrop-filter: blur(4px); 
+        text-shadow: none !important;
+        -webkit-text-stroke: 0 !important;
     }
 
     /* --- 5. Cards & Section Layouts --- */
@@ -239,8 +242,6 @@
     }
 
     /* --- 7. UI Components --- */
-    .modal-content { position: relative !important; }
-
     .btn-close, .modal-header .btn-close {
         position: absolute !important; 
         top: 15px !important; 
@@ -289,13 +290,19 @@
         .lightbox-image-side { height: 40vh; }
         .lightbox-info-side { flex: none; width: 100%; padding-bottom: 80px; }
         
+        /* 手機版 Hero 文字調整 */
+        #heroCarousel { height: 50vh; } 
+        .carousel-caption-custom { bottom: 10%; }
         .carousel-caption-custom h1, 
         .hero-subtitle { 
-            font-size: 2rem !important; 
-            -webkit-text-stroke: 1.2px #000 !important;
+            font-size: 1.8rem !important; 
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
         }
-        .hero-desc { font-size: 1.1rem !important; }
-        .carousel-caption-custom { bottom: 12%; }
+        .hero-desc { 
+            font-size: 0.95rem !important; 
+            padding: 4px 12px;
+        }
 
         .btn-close, .modal-header .btn-close { 
             top: 10px !important; 
