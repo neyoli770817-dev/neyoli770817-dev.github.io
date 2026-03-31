@@ -5,7 +5,7 @@
     
     <title>蘆洲帳篷租賃、Truss搭建｜八毅硬體結構 - 在地專業活動設備與舞台工程</title>
     
-    <meta name="description" content="八毅硬體結構深耕蘆洲、五股地區，提供專業阿里山帳篷、宮廷帳、圓拱帳、Truss結構搭建及舞台桌椅租賃。不論是預售屋案場、市集活動或企業年會，我們提供最乾淨、維護最精良的硬體設備。">
+    <meta name="description" content="八毅硬體結構深耕蘆洲、五股地區，提供專業阿里山帳篷、宮廷帳、圓拱帳、Truss結構搭建及舞台桌椅租賃。不論是預售屋案場、市集活動 or 企業年會，我們提供最乾淨、維護最精良的硬體設備。">
     
     <meta name="geo.region" content="TW-NWT" />
     <meta name="geo.placename" content="Luzhou District" />
@@ -51,7 +51,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-</head>
 
 <style>
     /* --- 1. 變數與基礎設定 --- */
@@ -135,24 +134,30 @@
         background-size: cover; background-position: center; opacity: 0.7; z-index: 1;
     }
     
-    /* 標題字強化：透過多層陰影與加粗線條，在白底或雜亂底色下都能清晰顯示 */
+    /* 暴力強化版：加粗、描邊、多重強效陰影 */
     .hero-subtitle {
         font-size: 2.2rem !important; 
         font-weight: 900 !important; 
-        color: #ffffff !important;          
+        color: #ffffff !important; 
+        /* 增加描邊讓文字邊緣變厚 */
+        -webkit-text-stroke: 1.2px rgba(0,0,0,0.8);
+        /* 疊加多層陰影確保立體感 */
         text-shadow: 
-            0 0 12px rgba(0,0,0,0.9), 
-            2px 2px 4px rgba(0,0,0,1);
+            0 0 15px rgba(0,0,0,1), 
+            2px 2px 5px rgba(0,0,0,1),
+            -1px -1px 2px rgba(0,0,0,0.5);
         margin-top: 15px;
         display: inline-block;
         letter-spacing: 2px;
     }
     
+    /* 副標題線條同步強化 */
     .hero-carousel-item p {
         font-size: 1.1rem;
         color: #fff !important;
-        font-weight: 600;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
+        font-weight: 800 !important;
+        text-shadow: 1px 1px 5px rgba(0,0,0,1);
+        -webkit-text-stroke: 0.5px rgba(0,0,0,0.5);
     }
 
     .carousel-caption-custom {
@@ -221,7 +226,7 @@
         color: white; overflow-y: auto; border-left: 1px solid rgba(255,255,255,0.1); 
     }
 
-    /* --- 7. UI Components (全面修正按鈕衝突與位移) --- */
+    /* --- 7. UI Components --- */
     .modal-content { position: relative !important; }
 
     .btn-close, .modal-header .btn-close {
@@ -272,10 +277,10 @@
         .lightbox-image-side { height: 40vh; }
         .lightbox-info-side { flex: none; width: 100%; padding-bottom: 80px; }
         
-        /* 手機版標題縮小，避免蓋住畫面，並維持陰影強度 */
         .hero-subtitle { 
             font-size: 1.5rem !important; 
-            text-shadow: 0 0 8px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,1);
+            text-shadow: 0 0 10px rgba(0,0,0,1), 1px 1px 3px rgba(0,0,0,1);
+            -webkit-text-stroke: 0.8px black;
         }
 
         .btn-close, .modal-header .btn-close { 
