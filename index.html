@@ -123,7 +123,7 @@
         text-align: center; width: 100%;
     }
 
-    /* --- 4. Hero Carousel (文字辨識度強化版) --- */
+    /* --- 4. Hero Carousel (暴力強化版：確保所有標題都有感) --- */
     #heroCarousel {
         height: 60vh; min-height: 400px; background-color: #000;
         position: relative; overflow: hidden;
@@ -134,30 +134,36 @@
         background-size: cover; background-position: center; opacity: 0.7; z-index: 1;
     }
     
-    /* 暴力強化版：加粗、描邊、多重強效陰影 */
-    .hero-subtitle {
-        font-size: 2.2rem !important; 
+    /* 這裡是最強暴力設定：直接鎖定輪播圖內的所有文字 */
+    .carousel-caption-custom h1, 
+    .carousel-caption-custom h2, 
+    .carousel-caption-custom .hero-subtitle,
+    .hero-carousel-item h2 {
+        font-size: 2.8rem !important; 
         font-weight: 900 !important; 
         color: #ffffff !important; 
-        /* 增加描邊讓文字邊緣變厚 */
-        -webkit-text-stroke: 1.2px rgba(0,0,0,0.8);
-        /* 疊加多層陰影確保立體感 */
+        /* 強制實體黑邊描邊 */
+        -webkit-text-stroke: 1.5px #000000 !important;
+        /* 多重堆疊陰影，確保背後發光 */
         text-shadow: 
-            0 0 15px rgba(0,0,0,1), 
-            2px 2px 5px rgba(0,0,0,1),
-            -1px -1px 2px rgba(0,0,0,0.5);
+            2px 2px 0px #000,
+            -1px -1px 0px #000,  
+            1px -1px 0px #000,
+            -1px 1px 0px #000,
+            0px 0px 15px rgba(0,0,0,1) !important;
         margin-top: 15px;
         display: inline-block;
         letter-spacing: 2px;
     }
     
-    /* 副標題線條同步強化 */
+    /* 副標題（造型Truss、背板Truss等文字）同步強化 */
+    .carousel-caption-custom p,
     .hero-carousel-item p {
-        font-size: 1.1rem;
-        color: #fff !important;
+        font-size: 1.2rem !important;
+        color: #ffffff !important;
         font-weight: 800 !important;
-        text-shadow: 1px 1px 5px rgba(0,0,0,1);
-        -webkit-text-stroke: 0.5px rgba(0,0,0,0.5);
+        -webkit-text-stroke: 0.8px #000000 !important;
+        text-shadow: 1px 1px 5px rgba(0,0,0,1) !important;
     }
 
     .carousel-caption-custom {
@@ -277,10 +283,12 @@
         .lightbox-image-side { height: 40vh; }
         .lightbox-info-side { flex: none; width: 100%; padding-bottom: 80px; }
         
+        .carousel-caption-custom h1, 
+        .carousel-caption-custom h2,
         .hero-subtitle { 
-            font-size: 1.5rem !important; 
-            text-shadow: 0 0 10px rgba(0,0,0,1), 1px 1px 3px rgba(0,0,0,1);
-            -webkit-text-stroke: 0.8px black;
+            font-size: 1.8rem !important; 
+            -webkit-text-stroke: 1px #000 !important;
+            text-shadow: 0 0 10px rgba(0,0,0,1) !important;
         }
 
         .btn-close, .modal-header .btn-close { 
