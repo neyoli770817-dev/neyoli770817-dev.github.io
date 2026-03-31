@@ -122,7 +122,7 @@
         text-align: center; width: 100%;
     }
 
-    /* --- 4. Hero Carousel --- */
+    /* --- 4. Hero Carousel (精修遮罩版) --- */
     #heroCarousel {
         height: 65vh; min-height: 400px; background-color: #000;
         position: relative; overflow: hidden;
@@ -152,7 +152,7 @@
         backdrop-filter: blur(4px);
     }
 
-    /* --- 5. 專業服務項目：專屬抽卡與八毅紅光暈 (核心修正區) --- */
+    /* --- 5. Cards & Section Layouts (抽卡光暈強化版) --- */
     .section-title { 
         color: var(--brand-red); font-weight: 900; margin: 60px 0 40px; 
         text-align: center; letter-spacing: 2px; 
@@ -162,24 +162,17 @@
         background: var(--brand-red); margin: 15px auto; 
     }
 
-    /* 卡片基礎狀態 */
+    /* 關鍵：專業服務項目專用 glow-card-final */
     .glow-card-final {
         transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
         position: relative;
         z-index: 1;
         border-radius: 12px;
         overflow: hidden;
-        background: #fff !important;
         border: 1px solid #eee !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        background: #fff !important;
     }
 
-    /* 圖片基礎狀態與縮放 */
-    .glow-card-final img {
-        transition: transform 0.6s ease;
-    }
-
-    /* 滑鼠移入：向上抽卡彈起 + 強力紅光暈 */
     .col:hover .glow-card-final {
         transform: translateY(-20px) !important; 
         z-index: 100 !important;
@@ -187,25 +180,51 @@
         border-color: var(--brand-red) !important;
     }
 
-    /* 滑鼠移入：圖片微放 */
+    .glow-card-final img {
+        transition: transform 0.5s ease;
+    }
     .col:hover .glow-card-final img {
         transform: scale(1.1);
     }
 
-    /* 針對右側控管系統的排除（不跳動） */
+    /* 通用服務與相簿卡片 */
+    .service-card, .album-card {
+        background: #ffffff !important;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        border: 1px solid #e0e0e0;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+    }
+
+    .service-card:hover, .album-card:hover {
+        transform: translateY(-12px) !important;
+        box-shadow: 0 20px 40px rgba(114, 47, 55, 0.3) !important; 
+        border-color: var(--brand-red) !important;
+        z-index: 10 !important;
+    }
+
+    .service-card img { width: 100%; height: 220px; object-fit: cover; }
+    .service-card-body { padding: 25px; text-align: center; }
+
+    /* 修正 Bootstrap Card 背景 */
+    .card { background-color: var(--card-bg) !important; border: none !important; }
+    .card-body.bg-white { border-radius: 0 0 12px 12px; }
+
+    /* 排除數位控管系統跳動 */
     #monitor-card { 
         transform: none !important; 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important; 
         z-index: 1;
-        transition: none !important;
     }
     #monitor-card:hover { transform: none !important; }
 
-    /* 通用 Bootstrap Card 修正 */
-    .card { background-color: transparent !important; border: none !important; }
-    .card-body.bg-white { border-radius: 0 0 12px 12px; }
-
-    /* --- 6. Gallery & Lightbox --- */
+    /* --- 6. Gallery & Lightbox (完整還原原本樣式) --- */
     .gallery-container {
         display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 20px; padding: 20px; width: 100%;
@@ -213,6 +232,24 @@
     .album-img-wrapper { position: relative; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; }
     .album-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .album-img-wrapper:hover .album-img { transform: scale(1.1); }
+
+    #imgLightbox {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.95); display: none;
+        align-items: center; justify-content: center; z-index: 10000;
+    }
+    .lightbox-content {
+        display: flex; width: 95vw; height: 90vh; background: #111;
+        border-radius: 15px; overflow: hidden; position: relative;
+    }
+    .lightbox-image-side { flex: 1; display: flex; align-items: center; justify-content: center; background: #000; }
+    .lightbox-image-side img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    
+    /* 這裡就是你說點下去沒反應的原因，我完整救回來了 */
+    .lightbox-info-side { 
+        flex: 0 0 400px; padding: 40px 30px; background: #1a1a1a; 
+        color: white; overflow-y: auto; border-left: 1px solid rgba(255,255,255,0.1); 
+    }
 
     /* --- 7. UI Components --- */
     .btn-close {
@@ -246,8 +283,6 @@
         .carousel-caption-custom h1 { font-size: 1.8rem !important; }
         .hero-desc { font-size: 0.95rem !important; }
         .gallery-container { grid-template-columns: 1fr 1fr; gap: 10px; }
-        /* 手機版抽卡幅度改小，避免跑版 */
-        .col:hover .glow-card-final { transform: translateY(-10px) !important; }
     }
 </style>
 </head>
