@@ -1199,20 +1199,25 @@ function openProjectGallery(projectId) {
         document.body.style.overflow = 'auto';  
     }
 
-// --- 頁面初始化與重整導向系統 ---
+// --- 最終版：頁面初始化與強制導向系統 ---
 window.addEventListener('load', function() {
-    // 1. 【核心修正】檢查是否需要跳轉回首頁
-    // 如果使用者在「關於八毅」或「企業合作」重整，網址通常會帶有狀態，這裡強制回歸
-    if (performance.navigation.type === 1) { 
-        // 這是偵測瀏覽器按下「重新整理」
-        // 清除 Hash 並確保在根目錄
-        if (window.location.hash || window.location.search) {
-            window.location.href = window.location.origin + window.location.pathname;
-            return; // 跳轉中，不執行後續
-        }
-    }
+    
+    // 1. 【核心修正】不管什麼情況，重整就強制回到官網初始狀態
+    // 隱藏所有可能開啟的子頁面區塊（請對應你實際的 ID，例如 #about-page, #collab-page）
+    const subPages = ['about-section', 'cooperation-section']; // 這裡填入你「關於八毅」跟「企業合作」的 ID
+    subPages.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none'; 
+    });
 
-    // 2. 載入相簿資料庫
+    // 確保主首頁（Hero, Cards 等）是顯示的
+    const mainSections = ['heroCarousel', 'main-content']; // 這裡填入你首頁內容的 ID
+    mainSections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'block';
+    });
+
+    // 2. 載入相簿資料庫 (保持原樣)
     try {
         loadGallery('gallery-1', photos_Tables);
         loadGallery('gallery-2', photos_Truss);
@@ -1226,19 +1231,14 @@ window.addEventListener('load', function() {
 
     // 3. Loading 動畫與聲音控制
     const loader = document.getElementById('loading-screen');
-    const entranceSound = new Audio('低沉穩重的進場音.mp3'); 
-    const popSound = new Audio('俏皮彈出音.mp3');
-
     if (loader) {
-        // 播放進場音效
-        entranceSound.play().catch(e => console.log("音效自動播放受阻"));
-
-        // 帳篷彈出音效 (對應 CSS 1.2s 延遲)
+        // 音效播放
+        new Audio('低沉穩重的進場音.mp3').play().catch(e => {});
         setTimeout(() => {
-            popSound.play().catch(e => console.log("音效自動播放受阻"));
+            new Audio('俏皮彈出音.mp3').play().catch(e => {});
         }, 1200);
 
-        // 結束 Loading 畫面
+        // 結束 Loading
         setTimeout(() => {
             loader.style.opacity = '0'; 
             setTimeout(() => {
@@ -1246,15 +1246,17 @@ window.addEventListener('load', function() {
                 loader.style.zIndex = '-1';
                 document.body.classList.remove('is-loading');
                 document.body.style.overflow = 'auto'; 
+                // 重整後強制置頂
+                window.scrollTo(0, 0);
             }, 850); 
         }, 2500); 
     }
 });
 
-// 4. 防止重整時位置偏移
-window.onbeforeunload = function() {
-    window.scrollTo(0, 0);
-};
+// 防止瀏覽器記憶捲動位置
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
     </script>
    </body>
             <a href="https://line.me/R/ti/p/@998cnhao" class="floating-line-btn" target="_blank">
